@@ -46,11 +46,11 @@ public class MultiManager : Singleton<MultiManager>
                 OnConnectFail?.Invoke(msg);
             });
 
-        _mSceneLoader = new MultiSceneRpcLoader(count =>
+        _mSceneLoader = new MultiSceneRpcLoader((id, count) =>
         {
             OnLoadSuccess?.Invoke(count);
             
-            Debug.Log(count);
+            Debug.Log($"id : {id} , count : {count}");
         });
     }
 
@@ -58,5 +58,5 @@ public class MultiManager : Singleton<MultiManager>
     
     public void ConnectClient() => _mClientConnector?.Connect();
     
-    public void LoadScene(string sceneName) => _mSceneLoader?.Request(sceneName);
+    public void LoadGameScene() => _mSceneLoader?.Request("3_Game");
 }

@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class MultiSceneRpcLoader : MultiSceneLoader
 {
-    public event Action<int> OnLoadSuccess;
+    public delegate void OnLoadSuccessDelegate(ulong id, int count);
+    
+    public event OnLoadSuccessDelegate OnLoadSuccess;
 
     private int _mLoadedCount = 0;
     private string _mSceneName;
 
-    public MultiSceneRpcLoader(Action<int> onLoadSuccess)
+    public MultiSceneRpcLoader(OnLoadSuccessDelegate onLoadSuccess)
     {
         OnLoadSuccess += onLoadSuccess;
     }
@@ -32,7 +34,9 @@ public class MultiSceneRpcLoader : MultiSceneLoader
         
         op.completed += a =>
         {
-            Load_Complete_Rpc();
+            ulong id = NetworkManager.Singleton.LocalClientId;
+            
+            Load_Complete_Rpc(id);
         };
     }
 
@@ -45,10 +49,10 @@ public class MultiSceneRpcLoader : MultiSceneLoader
     }
 
     [Rpc(SendTo.Server)]
-    private void Load_Complete_Rpc()
+    private void Load_Complete_Rpc(ulong id)
     {
         ++_mLoadedCount;
         
-        OnLoadSuccess?.Invoke(_mLoadedCount);
+        OnLoadSuccess?.Invoke(id, _mLoadedCount);
     }
 }
