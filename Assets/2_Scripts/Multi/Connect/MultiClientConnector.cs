@@ -27,6 +27,7 @@ public class MultiClientConnector : MultiConnector
 
     public override void Set(ulong steamId)
     {
+        _mTransport.targetSteamId = steamId;
         _mSteamId = steamId;
     }
 
