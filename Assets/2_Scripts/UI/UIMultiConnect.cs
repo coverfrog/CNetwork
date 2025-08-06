@@ -6,12 +6,19 @@ using UnityEngine.UI;
 public class UIMultiConnect : MonoBehaviour
 {
     [SerializeField] private Button mServerButton;
+    [SerializeField] private Button mClientButton;
 
     private void Start()
     {
         mServerButton.interactable = true;
         mServerButton.onClick.AddListener(ConnectServer);
   
+        mClientButton.interactable = true;
+        mClientButton.onClick.AddListener(() =>
+        {
+            MultiManager.Instance.ConnectClient(76561199223957438);
+        });
+        
         MultiManager.Instance.OnConnectSuccess += OnConnectSuccess;
         MultiManager.Instance.OnConnectFail += OnConnectFail;
     }

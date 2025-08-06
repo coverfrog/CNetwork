@@ -15,6 +15,8 @@ public class MultiSceneRpcLoader : MultiSceneLoader
     public override void Init(Action<ulong, int> onLoadSuccess)
     {
         OnLoadSuccess += onLoadSuccess;
+        
+        DontDestroyOnLoad(gameObject);
     }
     
     public override void Request(string sceneName)

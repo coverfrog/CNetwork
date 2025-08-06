@@ -21,6 +21,11 @@ public class MultiServerConnector : MultiConnector
         SteamMatchmaking.OnLobbyCreated += OnLobbyCreated;
     }
 
+    public override void Set(ulong id)
+    {
+        
+    }
+
     public override void Connect()
     {
         _ = SteamMatchmaking.CreateLobbyAsync(_mMaxPlayerCount);

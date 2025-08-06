@@ -10,8 +10,9 @@ public class MultiClientConnector : MultiConnector
     private event Action<Lobby> OnConnectSuccess;
     private event Action<string> OnConnectFail;
 
-    private readonly ulong _mSteamId;
     private readonly FacepunchTransport _mTransport;
+    
+    private ulong _mSteamId;
     
     public MultiClientConnector(FacepunchTransport transport, Action<Lobby> onConnectSuccess, Action<string> onConnectFail)
     {
@@ -23,17 +24,10 @@ public class MultiClientConnector : MultiConnector
         SteamFriends.OnGameLobbyJoinRequested += OnJoinRequested;
         SteamMatchmaking.OnLobbyEntered += OnLobbyEntered;
     }
-    
-    public MultiClientConnector(FacepunchTransport transport, ulong steamId, Action<Lobby> onConnectSuccess, Action<string> onConnectFail)
+
+    public override void Set(ulong id)
     {
-        _mTransport = transport;
-        _mSteamId = steamId;
-        
-        OnConnectSuccess += onConnectSuccess;
-        OnConnectFail += onConnectFail;
-        
-        SteamFriends.OnGameLobbyJoinRequested += OnJoinRequested;
-        SteamMatchmaking.OnLobbyEntered += OnLobbyEntered;
+        _mSteamId = id;
     }
 
     public override void Connect()
