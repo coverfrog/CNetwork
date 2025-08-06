@@ -2,6 +2,7 @@ using System;
 using Netcode.Transports.Facepunch;
 using Steamworks.Data;
 using Unity.Netcode;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkManager))]
@@ -46,11 +47,10 @@ public class MultiManager : Singleton<MultiManager>
                 OnConnectFail?.Invoke(msg);
             });
 
-        _mSceneLoader = new MultiSceneRpcLoader((id, count) =>
+        _mSceneLoader = new GameObject("Multi Scene Loader").AddComponent<MultiSceneRpcLoader>();
+        _mSceneLoader.Init((id, count) =>
         {
-            OnLoadSuccess?.Invoke(count);
-            
-            Debug.Log($"id : {id} , count : {count}");
+            Debug.Log($"id : {id}, count : {count}");
         });
     }
 

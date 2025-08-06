@@ -4,16 +4,15 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(NetworkObject))]
 public class MultiSceneRpcLoader : MultiSceneLoader
 {
-    public delegate void OnLoadSuccessDelegate(ulong id, int count);
-    
-    public event OnLoadSuccessDelegate OnLoadSuccess;
+    public event Action<ulong, int> OnLoadSuccess;
 
-    private int _mLoadedCount = 0;
+    private int _mLoadedCount;
     private string _mSceneName;
 
-    public MultiSceneRpcLoader(OnLoadSuccessDelegate onLoadSuccess)
+    public override void Init(Action<ulong, int> onLoadSuccess)
     {
         OnLoadSuccess += onLoadSuccess;
     }
@@ -25,6 +24,8 @@ public class MultiSceneRpcLoader : MultiSceneLoader
 
     private void Load()
     {
+        _mLoadedCount = 0;
+        
         AsyncOperation op = SceneManager.LoadSceneAsync(_mSceneName);
 
         if (op == null)
