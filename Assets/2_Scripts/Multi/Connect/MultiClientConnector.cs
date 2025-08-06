@@ -29,6 +29,8 @@ public class MultiClientConnector : MultiConnector
     {
         _mTransport.targetSteamId = steamId;
         _mSteamId = steamId;
+        
+        Debug.Log($"Set {steamId}");
     }
 
     public override void Connect()
