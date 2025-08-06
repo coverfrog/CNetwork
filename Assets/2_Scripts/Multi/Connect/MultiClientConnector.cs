@@ -39,7 +39,8 @@ public class MultiClientConnector : MultiConnector
                 .WithSlotsAvailable(1)
                 .RequestAsync();
 
-            Lobby[] targets = lobbies.Where(l => l.Id == id)
+            
+            Lobby[] targets = lobbies.Where(l => l.Owner.Id == id)
                 .ToArray();
             
             if (targets.Length == 0)
