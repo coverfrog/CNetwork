@@ -14,20 +14,28 @@ public class UIMultiConnect : MonoBehaviour
         mServerButton.onClick.AddListener(ConnectServer);
   
         mClientButton.interactable = true;
-        mClientButton.onClick.AddListener(() =>
-        {
-            MultiManager.Instance.ConnectClient(76561199223957438);
-        });
+        mClientButton.onClick.AddListener(ConnectClient);
         
         MultiManager.Instance.OnConnectSuccess += OnConnectSuccess;
         MultiManager.Instance.OnConnectFail += OnConnectFail;
     }
 
-    private void ConnectServer()
+    private void Connect()
     {
         mServerButton.interactable = false;
-        
+        mClientButton.interactable = false;
+    }
+    
+    private void ConnectServer()
+    {
+        Connect();
         MultiManager.Instance.ConnectServer();
+    }
+
+    private void ConnectClient()
+    {
+        Connect();
+        MultiManager.Instance.ConnectClient(76561199223957438);
     }
     
     private void OnConnectSuccess(Lobby lobby)

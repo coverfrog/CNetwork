@@ -55,8 +55,12 @@ public class MultiManager : Singleton<MultiManager>
     }
 
     public void ConnectServer() => _mServerConnector?.Connect();
-    
-    public void ConnectClient(ulong id) => _mClientConnector?.Connect();
+
+    public void ConnectClient(ulong id)
+    {
+        _mClientConnector?.Set(id);
+        _mClientConnector?.Connect();
+    }
     
     [ContextMenu("> Context : Load Scene Game")]
     public void LoadSceneGame() => _mSceneLoader?.Request("3_Game");

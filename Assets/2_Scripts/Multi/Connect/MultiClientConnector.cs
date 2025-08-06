@@ -25,9 +25,9 @@ public class MultiClientConnector : MultiConnector
         SteamMatchmaking.OnLobbyEntered += OnLobbyEntered;
     }
 
-    public override void Set(ulong id)
+    public override void Set(ulong steamId)
     {
-        _mSteamId = id;
+        _mSteamId = steamId;
     }
 
     public override void Connect()
