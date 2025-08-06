@@ -34,7 +34,6 @@ public class MultiClientConnector : MultiConnector
     public override void Connect(ulong id)
     {
         Lobby? lobby = SteamMatchmaking.LobbyList
-            .WithKeyValue(KeyLobbyId, id.ToString())
             .RequestAsync()
             .Result
             .FirstOrDefault();
