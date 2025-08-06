@@ -18,10 +18,11 @@ public class MultiManager : Singleton<MultiManager>
 
     #endregion
 
+    [SerializeField] private MultiSceneLoader mSceneLoader;
+    
     private FacepunchTransport _mTransport;
     
     private IMultiConnector _mClientConnector, _mServerConnector;
-    private IMultiSceneLoader _mSceneLoader;
     
     public Lobby? Current { get; private set; }
     
@@ -53,17 +54,11 @@ public class MultiManager : Singleton<MultiManager>
             {
                 OnConnectFail?.Invoke(msg);
             });
-
-        _mSceneLoader = new GameObject("Multi Scene Loader").AddComponent<MultiSceneRpcLoader>();
-        _mSceneLoader.Init(ids =>
-        {
-            
-        });
     }
 
     public void ConnectServer() => _mServerConnector?.Connect();
 
     public void ConnectClient(ulong lobbyId) =>  _mClientConnector?.Connect(lobbyId);
     
-    public void LoadSceneGame() => _mSceneLoader?.Request("3_Game");
+    public void LoadSceneGame() => mSceneLoader?.Request("3_Game");
 }
