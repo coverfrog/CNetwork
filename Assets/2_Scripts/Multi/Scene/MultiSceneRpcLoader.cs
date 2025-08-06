@@ -26,6 +26,20 @@ public class MultiSceneRpcLoader : MultiSceneLoader
 
     public override void Request(string sceneName)
     {
+        if (!IsServer)
+        {
+            return;
+        }
+        
+        _mAllow = false;
+        _mIds.Clear();
+        _mLoadedCount = 0;
+        
+        if (MultiManager.Instance.Current != null)
+        {
+            _mTargetCount = MultiManager.Instance.Current.Value.MemberCount;
+        }
+        
         Request_Rpc(new FixedString128Bytes(sceneName));
     }
 
@@ -33,15 +47,6 @@ public class MultiSceneRpcLoader : MultiSceneLoader
     {
         try
         {
-            _mAllow = false;
-            _mIds.Clear();
-            _mLoadedCount = 0;
-            
-            if (MultiManager.Instance.Current != null)
-            {
-                _mTargetCount = MultiManager.Instance.Current.Value.MemberCount;
-            }
-
             AsyncOperation op = SceneManager.LoadSceneAsync(_mSceneName, LoadSceneMode.Additive);
         
             if (op == null)
@@ -94,12 +99,16 @@ public class MultiSceneRpcLoader : MultiSceneLoader
             return;
         }
 
+        Debug.Log("끝!");
+        
         Load_All_End_Rpc();
     }
     
     [Rpc(SendTo.Everyone)]
     private void Load_All_End_Rpc()
     {
+        Debug.Log("진입?");
+        
         _mAllow = true;
 
         if (!IsServer)
