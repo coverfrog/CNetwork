@@ -25,7 +25,7 @@ public class UIMultiConnect : MonoBehaviour
     
     private void OnConnectSuccess(Lobby lobby)
     {
-        MultiManager.Instance.LoadGameScene();
+        
     }
     
     private void OnConnectFail(string msg)
