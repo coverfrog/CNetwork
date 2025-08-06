@@ -36,16 +36,18 @@ public class MultiClientConnector : MultiConnector
         try
         {
             Lobby[] lobbies = await SteamMatchmaking.LobbyList
-                .WithKeyValue(KeyLobbyId, id.ToString())
                 .WithSlotsAvailable(1)
                 .RequestAsync();
 
-            if (lobbies.Length == 0)
+            Lobby[] targets = lobbies.Where(l => l.Id == id)
+                .ToArray();
+            
+            if (targets.Length == 0)
             {
-                throw new  Exception("Lobby not found");
+                throw new Exception("Lobby not found");
             }
             
-            _ = await lobbies[0].Join();
+            _ = await targets[0].Join();
         }
         catch (Exception)
         {

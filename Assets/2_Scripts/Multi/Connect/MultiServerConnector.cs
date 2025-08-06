@@ -42,7 +42,6 @@ public class MultiServerConnector : MultiConnector
 
         lobby.SetJoinable(true);
         lobby.SetPublic();
-        lobby.SetData(KeyLobbyId, SteamClient.SteamId.ToString());
 
         if (!NetworkManager.Singleton.StartServer())
         {
