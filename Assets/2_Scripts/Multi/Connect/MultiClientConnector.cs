@@ -39,16 +39,14 @@ public class MultiClientConnector : MultiConnector
                 .WithSlotsAvailable(1)
                 .RequestAsync();
 
-            
-            Lobby[] targets = lobbies.Where(l => l.Owner.Id == id)
-                .ToArray();
-            
-            if (targets.Length == 0)
+            foreach (Lobby lobby in lobbies)
             {
-                throw new Exception("Lobby not found");
+                Debug.Log(lobby.Owner.Id);
+                
+                if (lobby.Owner.Id != _mSteamId) continue;
+                
+                _ = await lobby.Join();
             }
-            
-            _ = await targets[0].Join();
         }
         catch (Exception)
         {
