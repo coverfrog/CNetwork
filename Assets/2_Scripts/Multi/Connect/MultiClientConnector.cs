@@ -36,7 +36,7 @@ public class MultiClientConnector : MultiConnector
         Lobby? lobby = SteamMatchmaking.LobbyList
             .RequestAsync()
             .Result
-            .FirstOrDefault();
+            .FirstOrDefault(l => l.Id == id);
 
         _ = lobby?.Join();
     }
