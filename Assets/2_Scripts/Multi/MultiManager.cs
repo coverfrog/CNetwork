@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Netcode.Transports.Facepunch;
 using Steamworks.Data;
 using Unity.Netcode;
@@ -9,21 +10,23 @@ using UnityEngine;
 [RequireComponent(typeof(FacepunchTransport))]
 public class MultiManager : Singleton<MultiManager>
 {
-    public event Action<Lobby> OnConnectSuccess;
-    public event Action<string> OnConnectFail;
-    public event Action<int> OnLoadSuccess;
+    #region > Event
 
-    private NetworkManager _mNetworkManager;
+    public event Action<Lobby> OnConnectSuccess;
+    
+    public event Action<string> OnConnectFail;
+
+    #endregion
+
     private FacepunchTransport _mTransport;
     
     private IMultiConnector _mClientConnector, _mServerConnector;
     private IMultiSceneLoader _mSceneLoader;
-
+    
     protected override void Awake()
     {
         base.Awake();
         
-        _mNetworkManager = GetComponent<NetworkManager>();
         _mTransport = GetComponent<FacepunchTransport>();
     }
 
@@ -48,19 +51,15 @@ public class MultiManager : Singleton<MultiManager>
             });
 
         _mSceneLoader = new GameObject("Multi Scene Loader").AddComponent<MultiSceneRpcLoader>();
-        _mSceneLoader.Init((id, count) =>
+        _mSceneLoader.Init(ids =>
         {
-            Debug.Log($"id : {id}, count : {count}");
+            
         });
     }
 
     public void ConnectServer() => _mServerConnector?.Connect();
 
-    public void ConnectClient(ulong id)
-    {
-        _mClientConnector?.Connect(id);
-    }
+    public void ConnectClient(ulong lobbyId) =>  _mClientConnector?.Connect(lobbyId);
     
-    [ContextMenu("> Context : Load Scene Game")]
     public void LoadSceneGame() => _mSceneLoader?.Request("3_Game");
 }

@@ -31,7 +31,7 @@ public class MultiClientConnector : MultiConnector
         _ = SteamMatchmaking.JoinLobbyAsync(_mSteamId);
     }
 
-    public override async void Connect(ulong id)
+    public override async void Connect(ulong lobbyId)
     {
         try
         {
@@ -41,11 +41,11 @@ public class MultiClientConnector : MultiConnector
 
             foreach (Lobby lobby in lobbies)
             {
-                Debug.Log(lobby.Id);
+                if (lobby.Id != lobbyId) continue;
                 
-                if (lobby.Id != _mSteamId) continue;
-                
-                _ = await lobby.Join();
+                _ = lobby.Join();
+
+                return;
             }
         }
         catch (Exception)

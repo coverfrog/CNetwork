@@ -13,7 +13,7 @@ public class UIMultiConnect : MonoBehaviour
         mServerButton.interactable = true;
         mServerButton.onClick.AddListener(ConnectServer);
   
-        mClientButton.interactable = true;
+        mClientButton.interactable = false;
         mClientButton.onClick.AddListener(ConnectClient);
         
         MultiManager.Instance.OnConnectSuccess += OnConnectSuccess;
