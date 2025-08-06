@@ -24,11 +24,6 @@ public class MultiSceneRpcLoader : MultiSceneLoader
         DontDestroyOnLoad(gameObject);
     }
 
-    public override void SetCount(int target)
-    {
-        _mTargetCount = target;
-    }
-
     public override void Request(string sceneName)
     {
         Request_Rpc(new FixedString128Bytes(sceneName));
@@ -41,7 +36,12 @@ public class MultiSceneRpcLoader : MultiSceneLoader
             _mAllow = false;
             _mIds.Clear();
             _mLoadedCount = 0;
-        
+            
+            if (MultiManager.Instance.Current != null)
+            {
+                _mTargetCount = MultiManager.Instance.Current.Value.MemberCount;
+            }
+
             AsyncOperation op = SceneManager.LoadSceneAsync(_mSceneName, LoadSceneMode.Additive);
         
             if (op == null)

@@ -23,6 +23,8 @@ public class MultiManager : Singleton<MultiManager>
     private IMultiConnector _mClientConnector, _mServerConnector;
     private IMultiSceneLoader _mSceneLoader;
     
+    public Lobby? Current { get; private set; }
+    
     protected override void Awake()
     {
         base.Awake();
@@ -35,6 +37,7 @@ public class MultiManager : Singleton<MultiManager>
         _mClientConnector = new MultiClientConnector(_mTransport,
             lobby =>
             {
+                Current = lobby;
                 OnConnectSuccess?.Invoke(lobby);
             }, msg =>
             {
@@ -44,6 +47,7 @@ public class MultiManager : Singleton<MultiManager>
         _mServerConnector = new MultiServerConnector(4,
             lobby =>
             {
+                Current = lobby;
                 OnConnectSuccess?.Invoke(lobby);
             }, msg =>
             {
