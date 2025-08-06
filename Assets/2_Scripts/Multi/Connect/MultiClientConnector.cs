@@ -43,7 +43,7 @@ public class MultiClientConnector : MultiConnector
             {
                 Debug.Log(lobby.Owner.Id);
                 
-                if (lobby.Owner.Id != _mSteamId) continue;
+                if (lobby.Id != _mSteamId) continue;
                 
                 _ = await lobby.Join();
             }
