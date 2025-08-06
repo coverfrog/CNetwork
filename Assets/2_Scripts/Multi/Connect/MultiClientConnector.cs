@@ -41,7 +41,7 @@ public class MultiClientConnector : MultiConnector
 
             foreach (Lobby lobby in lobbies)
             {
-                Debug.Log(lobby.Owner.Id);
+                Debug.Log(lobby.Id);
                 
                 if (lobby.Id != _mSteamId) continue;
                 
