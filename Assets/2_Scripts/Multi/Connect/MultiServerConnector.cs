@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class MultiServerConnector : MultiConnector
 {
-    private readonly int _mMaxPlayerCount;
-    
     private event Action<Lobby> OnConnectSuccess;
     private event Action<string> OnConnectFail;
+    
+    private readonly int _mMaxPlayerCount;
+    
     
     public MultiServerConnector(int maxPlayerCount, Action<Lobby> onConnectSuccess, Action<string> onConnectFail)
     {
@@ -21,16 +22,16 @@ public class MultiServerConnector : MultiConnector
         SteamMatchmaking.OnLobbyCreated += OnLobbyCreated;
     }
 
-    public override void Set(ulong id)
-    {
-        
-    }
-
     public override void Connect()
     {
         _ = SteamMatchmaking.CreateLobbyAsync(_mMaxPlayerCount);
     }
-    
+
+    public override void Connect(ulong id)
+    {
+        
+    }
+
     private void OnLobbyCreated(Result result, Lobby lobby)
     {
         if (result != Result.OK)
@@ -41,6 +42,7 @@ public class MultiServerConnector : MultiConnector
 
         lobby.SetJoinable(true);
         lobby.SetPublic();
+        lobby.SetData(KeyLobbyId, SteamClient.SteamId.ToString());
 
         if (!NetworkManager.Singleton.StartServer())
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Netcode.Transports.Facepunch;
 using Steamworks;
 using Steamworks.Data;
@@ -25,17 +26,20 @@ public class MultiClientConnector : MultiConnector
         SteamMatchmaking.OnLobbyEntered += OnLobbyEntered;
     }
 
-    public override void Set(ulong steamId)
-    {
-        _mTransport.targetSteamId = steamId;
-        _mSteamId = steamId;
-        
-        Debug.Log($"Set {steamId}");
-    }
-
     public override void Connect()
     {
         _ = SteamMatchmaking.JoinLobbyAsync(_mSteamId);
+    }
+
+    public override void Connect(ulong id)
+    {
+        Lobby? lobby = SteamMatchmaking.LobbyList
+            .WithKeyValue(KeyLobbyId, id.ToString())
+            .RequestAsync()
+            .Result
+            .FirstOrDefault();
+
+        _ = lobby?.Join();
     }
 
     private void OnJoinRequested(Lobby lobby, SteamId steamId)

@@ -10,6 +10,7 @@ public interface IMultiSceneLoader
 
 public abstract class MultiSceneLoader : NetworkBehaviour, IMultiSceneLoader
 {
+    
     public abstract void Init(Action<ulong, int> onLoadSuccess);
 
     public abstract void Request(string sceneName);

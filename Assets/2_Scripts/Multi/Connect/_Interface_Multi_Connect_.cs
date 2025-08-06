@@ -3,14 +3,16 @@ using UnityEngine;
 
 public interface IMultiConnector
 {
-    void Set(ulong id);
-    
     void Connect();
+    
+    void Connect(ulong id);
 }
 
 public abstract class MultiConnector : IMultiConnector
 {
-    public abstract void Set(ulong id);
+    protected const string KeyLobbyId = "lobby_id";
 
     public abstract void Connect();
+    
+    public abstract void Connect(ulong id);
 }
