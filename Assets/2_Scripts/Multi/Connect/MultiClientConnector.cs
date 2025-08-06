@@ -31,14 +31,26 @@ public class MultiClientConnector : MultiConnector
         _ = SteamMatchmaking.JoinLobbyAsync(_mSteamId);
     }
 
-    public override void Connect(ulong id)
+    public override async void Connect(ulong id)
     {
-        Lobby? lobby = SteamMatchmaking.LobbyList
-            .RequestAsync()
-            .Result
-            .FirstOrDefault(l => l.Id == id);
+        try
+        {
+            Lobby[] lobbies = await SteamMatchmaking.LobbyList
+                .WithKeyValue(KeyLobbyId, id.ToString())
+                .WithSlotsAvailable(1)
+                .RequestAsync();
 
-        _ = lobby?.Join();
+            if (lobbies.Length == 0)
+            {
+                throw new  Exception("Lobby not found");
+            }
+            
+            _ = await lobbies[0].Join();
+        }
+        catch (Exception)
+        {
+            // ignore
+        }
     }
 
     private void OnJoinRequested(Lobby lobby, SteamId steamId)

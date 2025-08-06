@@ -10,6 +10,8 @@ public interface IMultiConnector
 
 public abstract class MultiConnector : IMultiConnector
 {
+    protected const string KeyLobbyId = "lobby_id";
+
     public abstract void Connect();
     
     public abstract void Connect(ulong id);
