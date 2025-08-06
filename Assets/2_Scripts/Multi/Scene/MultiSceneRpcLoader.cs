@@ -17,11 +17,10 @@ public class MultiSceneRpcLoader : MultiSceneLoader
     private int _mLoadedCount, _mTargetCount;
     private string _mSceneName;
 
-    public override void Init(Action<List<ulong>> onLoadSuccess)
+    private void Awake()
     {
-        OnLoadSuccess += onLoadSuccess;
-        
         DontDestroyOnLoad(gameObject);
+
     }
 
     public override void Request(string sceneName)
