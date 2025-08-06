@@ -56,6 +56,8 @@ public class MultiSceneRpcLoader : MultiSceneLoader
         
             op.allowSceneActivation = false;
 
+            Debug.Log("로딩");
+            
             while (op.progress < 0.9f)
             {
                 await Task.Delay(100);
