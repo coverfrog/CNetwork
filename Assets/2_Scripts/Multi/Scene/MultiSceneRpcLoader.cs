@@ -9,11 +9,9 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(NetworkObject))]
 public class MultiSceneRpcLoader : MultiSceneLoader
 {
-    public event Action<List<ulong>> OnLoadSuccess;
+    private List<ulong> _mIdList;
 
-    private readonly List<ulong> _mIds = new List<ulong>();
-
-    private bool _mAllow;
+    private bool _mAllow, _mCompleted;
     private int _mLoadedCount, _mTargetCount;
     private string _mSceneName;
 
@@ -25,13 +23,15 @@ public class MultiSceneRpcLoader : MultiSceneLoader
 
     public override void Request(string sceneName)
     {
+        _mAllow = false;
+        _mCompleted = false;
+        
         if (!IsServer)
         {
             return;
         }
         
-        _mAllow = false;
-        _mIds.Clear();
+        _mIdList = new List<ulong>();
         _mLoadedCount = 0;
         
         if (MultiManager.Instance.Current != null)
@@ -46,6 +46,8 @@ public class MultiSceneRpcLoader : MultiSceneLoader
     {
         try
         {
+            Scene prevScene = SceneManager.GetActiveScene();
+            
             AsyncOperation op = SceneManager.LoadSceneAsync(_mSceneName, LoadSceneMode.Additive);
         
             if (op == null)
@@ -54,8 +56,10 @@ public class MultiSceneRpcLoader : MultiSceneLoader
             }
         
             op.allowSceneActivation = false;
-
-            Debug.Log("로딩");
+            op.completed += a =>
+            {
+                _mCompleted = true;
+            };
             
             while (op.progress < 0.9f)
             {
@@ -72,6 +76,15 @@ public class MultiSceneRpcLoader : MultiSceneLoader
             }
             
             op.allowSceneActivation = true;
+
+            while (!_mCompleted)
+            {
+                await Task.Delay(100);
+            }
+            
+            await SceneManager.UnloadSceneAsync(prevScene);
+            
+            FindAnyObjectByType<SceneHandler>()?.OnSceneLoaded(IsServer, _mIdList);
         }
         catch (Exception e)
         {
@@ -91,7 +104,7 @@ public class MultiSceneRpcLoader : MultiSceneLoader
     [Rpc(SendTo.Server)]
     private void Load_End_Rpc(ulong id)
     {
-        _mIds.Add(id);
+        _mIdList.Add(id);
         
         ++_mLoadedCount;
 
@@ -100,23 +113,13 @@ public class MultiSceneRpcLoader : MultiSceneLoader
             return;
         }
 
-        Debug.Log("끝!");
-        
         Load_All_End_Rpc();
     }
+
     
     [Rpc(SendTo.Everyone)]
     private void Load_All_End_Rpc()
     {
-        Debug.Log("진입?");
-        
         _mAllow = true;
-
-        if (!IsServer)
-        {
-            return;
-        }
-        
-        OnLoadSuccess?.Invoke(_mIds);
     }
 }
