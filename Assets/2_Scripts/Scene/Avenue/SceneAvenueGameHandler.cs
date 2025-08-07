@@ -12,7 +12,7 @@ public class SceneAvenueGameHandler : SceneHandler
         
         if (isServer)
         {
-            mCardDeck.GetComponent<NetworkObject>().Spawn();
+            mCardDeck.GetComponent<NetworkObject>().InstantiateAndSpawn(NetworkManager.Singleton);
         }
         
         foreach (ulong id in idList)
