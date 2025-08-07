@@ -20,12 +20,7 @@ public interface ICardDeckDataSo
     
 }
 
-public abstract class CardDeckDataSo : ScriptableObject, ICardDeckDataSo
-{
-   
-}
-
-public abstract class CardDeckDataSo<T> : CardDeckDataSo where T : ICardDataSo
+public abstract class CardDeckDataSo<T> : ScriptableObject, ICardDeckDataSo
 {
     [SerializeField] protected List<CountValue<T>> cardDataList;
     
