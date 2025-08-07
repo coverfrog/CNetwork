@@ -11,20 +11,21 @@ public class MultiSceneRpcLoader : MultiSceneLoader
 {
     private List<ulong> _mIdList;
 
-    private bool _mAllow, _mCompleted;
+    private bool _mIsServer;
+    private bool _mIsAllow, _mIsCompleted;
     private int _mLoadedCount, _mTargetCount;
     private string _mSceneName;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-
     }
 
     public override void Request(string sceneName)
     {
-        _mAllow = false;
-        _mCompleted = false;
+        _mIsServer = NetworkManager.Singleton.IsServer;
+        _mIsAllow = false;
+        _mIsCompleted = false;
         
         if (!IsServer)
         {
@@ -58,7 +59,7 @@ public class MultiSceneRpcLoader : MultiSceneLoader
             op.allowSceneActivation = false;
             op.completed += a =>
             {
-                _mCompleted = true;
+                _mIsCompleted = true;
             };
             
             while (op.progress < 0.9f)
@@ -70,21 +71,21 @@ public class MultiSceneRpcLoader : MultiSceneLoader
             
             Load_End_Rpc(id);
 
-            while (!_mAllow)
+            while (!_mIsAllow)
             {
                 await Task.Delay(100);
             }
             
             op.allowSceneActivation = true;
 
-            while (!_mCompleted)
+            while (!_mIsCompleted)
             {
                 await Task.Delay(100);
             }
             
             await SceneManager.UnloadSceneAsync(prevScene);
             
-            FindAnyObjectByType<SceneHandler>()?.OnSceneLoaded(IsServer, _mIdList);
+            FindAnyObjectByType<SceneHandler>()?.OnSceneLoaded(_mIsServer, _mIdList);
         }
         catch (Exception e)
         {
@@ -120,6 +121,6 @@ public class MultiSceneRpcLoader : MultiSceneLoader
     [Rpc(SendTo.Everyone)]
     private void Load_All_End_Rpc()
     {
-        _mAllow = true;
+        _mIsAllow = true;
     }
 }
