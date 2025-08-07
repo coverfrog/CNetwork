@@ -8,6 +8,8 @@ public class SceneAvenueGameHandler : SceneHandler
     
     public override void OnSceneLoaded(bool isServer, List<ulong> idList)
     {
+        Debug.Log($"isServer: {isServer}");
+        
         if (isServer)
         {
             mCardDeck.GetComponent<NetworkObject>().Spawn();
