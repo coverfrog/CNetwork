@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Unity.Netcode;
 using UnityEngine;
@@ -21,7 +22,12 @@ public class AvenueCardDeck : NetworkBehaviour
     private int _mPlayerLoadedCount;
     private int _mPlayerLoadTargetCount;
 
+    private int _mCursor;
+    
     private Vector3 _mSpawnOriginPoint;
+
+    private Action _mOnEnded;
+    
     
     public ulong Spawn()
     {
@@ -29,14 +35,12 @@ public class AvenueCardDeck : NetworkBehaviour
         return mNetworkObject.NetworkObjectId;
     }
     
-    public void Init_Request(Vector3 spawnOriginPoint)
+    public void Init_Request(Vector3 spawnOriginPoint, Action onEnded)
     {
         if (!IsServer)
         {
             return;
         }
-
-        Set_OriginPoint_Rpc(spawnOriginPoint);
 
         List<AvenueCardNetworkData> networkDataList = mDataSoGroup.GetNetworkDataList();
 
@@ -45,17 +49,35 @@ public class AvenueCardDeck : NetworkBehaviour
 
         _mPlayerLoadedCount = 0;
         _mPlayerLoadTargetCount = NetworkManager.Singleton.ConnectedClients.Count;
+
+        _mOnEnded = onEnded;
         
-        mCardList.Clear();
+        Set_OriginPoint_Rpc(spawnOriginPoint);
+        Set_Cursor_Rpc(networkDataList.Count - 1);
         
         foreach (AvenueCardNetworkData networkData in networkDataList)
         {
             // - ins
             AvenueCard card = Instantiate(mCardOrigin);
-            ulong id = card.Spawn();
+            ulong cardId = card.Spawn();
             
-            Apply_Rpc(id, networkData);
+            // - add
+            Add_Card_Rpc(cardId);
+            
+            // - apply
+            Apply_Rpc(cardId, networkData);
         }
+    }
+
+    public AvenueCard Draw()
+    {
+        return mCardList[_mCursor];
+    }
+    
+    private void OnEnd()
+    {
+        // -- end
+        _mOnEnded?.Invoke();
     }
 
     [Rpc(SendTo.Everyone)]
@@ -63,18 +85,37 @@ public class AvenueCardDeck : NetworkBehaviour
     {
         _mSpawnOriginPoint = point;
     }
-    
-    private void OnApplyEnd()
+
+    [Rpc(SendTo.Everyone)]
+    private void Set_Cursor_Rpc(int value)
     {
-        // - pos
-        Debug.Log("End");
+        _mCursor = value;
     }
 
     [Rpc(SendTo.Everyone)]
-    private void Apply_Rpc(ulong id, AvenueCardNetworkData networkData)
+    private void Add_Card_Rpc(ulong netId)
     {
         // - net
-        if (!FindNet.Spawned(id, out AvenueCard card))
+        if (!NetCustomUtil.FindSpawned(netId, out AvenueCard card))
+        {
+            return;
+        }
+        
+        // - add
+        mCardList.Add(card);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void Set_Cursor_Add_Rpc(bool isAdd)
+    {
+        _mCursor = Mathf.Clamp(_mCursor + (isAdd ? +1 : -1), 0, int.MaxValue);
+    }
+    
+    [Rpc(SendTo.Everyone)]
+    private void Apply_Rpc(ulong cardId, AvenueCardNetworkData networkData)
+    {
+        // - net
+        if (!NetCustomUtil.FindSpawned(cardId, out AvenueCard card))
         {
             return;
         }
@@ -86,10 +127,9 @@ public class AvenueCardDeck : NetworkBehaviour
         AvenueCardDataConverter.ToData(networkData, data =>
         {
             // - pos set
-            Vector3 pos = _mSpawnOriginPoint + Vector3.up * mCardList.Count * mCardHeight;
+            Vector3 pos = _mSpawnOriginPoint + Vector3.up * data.deckCursor * mCardHeight;
             
-            // - add
-            mCardList.Add(card);
+  
             
             // - set
             card
@@ -98,7 +138,6 @@ public class AvenueCardDeck : NetworkBehaviour
                 .SetPosition(pos)
                 .SetFrontTexture(data.frontTexture)
                 .SetBackTexture(data.backTexture);
-                
             
             // - counter
             ++_mCardLoadedCount;
@@ -117,7 +156,7 @@ public class AvenueCardDeck : NetworkBehaviour
             }
 
             // - end
-            OnApplyEnd();
+            OnEnd();
         });
     }
 }

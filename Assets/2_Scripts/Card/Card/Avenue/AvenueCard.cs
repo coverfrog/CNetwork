@@ -8,12 +8,15 @@ public class AvenueCard : NetworkBehaviour
 
     [SerializeField] private NetworkObject mNetworkObject;
     [SerializeField] private MeshRenderer mMeshRender;
-    [Space]
-    [SerializeField] private AvenueCardData mNetworkData;
+    [Space] 
+    [SerializeField] private bool mIsMe;
+    [SerializeField] private AvenueCardData mData;
 
+    public AvenueCardData Data => mData;
+    
     public AvenueCard SetData(AvenueCardData data)
     {
-        mNetworkData = data;
+        mData = data;
         return this;
     }
 

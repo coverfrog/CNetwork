@@ -27,13 +27,16 @@ public class AvenueCardDataSoGroup : ScriptableObject
             int r = Random.Range(0, i + 1);
             (source[i], source[r]) = (source[r], source[i]);
         }
-        
+
         // -- convert
-        List<AvenueCardNetworkData> result = new();
+        List<AvenueCardNetworkData> result = source.Select(AvenueCardDataConverter.ToNetworkData).ToList();
         
-        foreach (AvenueCardNetworkData networkData in source.Select(AvenueCardDataConverter.ToNetworkData))
+        for (int i = 0; i < count; i++)
         {
-            result.Add(networkData);
+            AvenueCardNetworkData temp = result[i];
+            temp.deckCursor = i;
+
+            result[i] = temp;
         }
 
         // -- result

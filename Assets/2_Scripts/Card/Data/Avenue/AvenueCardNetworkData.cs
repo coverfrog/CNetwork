@@ -19,7 +19,14 @@ public struct AvenueCardNetworkData : INetworkSerializable, IEquatable<AvenueCar
     public FixedString512Bytes backTexturePath;
 
     #endregion
-    
+
+    #region Id
+
+    public ulong netId;
+    public int deckCursor;
+
+    #endregion
+
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
         // text
@@ -30,6 +37,10 @@ public struct AvenueCardNetworkData : INetworkSerializable, IEquatable<AvenueCar
         // texture
         serializer.SerializeValue(ref frontTexturePath);
         serializer.SerializeValue(ref backTexturePath);
+        
+        // id
+        serializer.SerializeValue(ref netId);
+        serializer.SerializeValue(ref deckCursor);
     }
 
     public bool Equals(AvenueCardNetworkData other)

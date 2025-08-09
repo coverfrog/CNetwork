@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 1f4503cfd0187834cae8c68fa21ead39
   m_SerializeEntries:
+  - m_GUID: 04ba0fec42e32874aaf6f75d9f0a83c8
+    m_Address: "Assets/3_Images/Card/0_0_\uD14C\uC2A4\uD2B8.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 537f1b42275ce1544ad3c4bf43ae1b61
     m_Address: "Assets/3_Images/Card/1_3_\uBC29\uD574 \uACF5\uC791\uC6D0.png"
     m_ReadOnly: 0
