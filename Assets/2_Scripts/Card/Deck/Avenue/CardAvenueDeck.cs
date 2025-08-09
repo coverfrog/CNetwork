@@ -49,6 +49,7 @@ public class CardAvenueDeck : CardDeck
             CardDataSo cardDataSo = mCardDataSoList[i];
 
             AvenueCard card = Instantiate(mCardOrigin.Init(cardDataSo));
+            card.GetComponent<NetworkObject>().Spawn();
         }
     }
 }
