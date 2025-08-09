@@ -733,6 +733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1156701136}
   - component: {fileID: 1156701137}
+  - component: {fileID: 1156701138}
   m_Layer: 0
   m_Name: Scene Avenue Game Handler
   m_TagString: Untagged
@@ -768,10 +769,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCardDeckOrigin: {fileID: 7075238501133388882, guid: 3579bddeb01a4d14581619b40ee30ca2, type: 3}
-  mCardHandOrigin: {fileID: 6976411956442013382, guid: 095617da3faba3b4ab4442f2a7769fc0, type: 3}
+  mCardHandGroup: {fileID: 1156701138}
   mCardDeckSpawnPoint: {fileID: 1701511956}
-  mCardHandSpawnMePoint: {fileID: 645975974}
-  mCardHandSpawnOtherPoint: {fileID: 175233913}
+--- !u!114 &1156701138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156701135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b38c964de4c3546986b64b546c8d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInitDrawCount: 4
+  mCardHandOrigin: {fileID: 6976411956442013382, guid: 095617da3faba3b4ab4442f2a7769fc0, type: 3}
+  mCardHandSpawnPointMe: {fileID: 645975974}
+  mCardHandSpawnPointOther: {fileID: 175233913}
 --- !u!1 &1701511955
 GameObject:
   m_ObjectHideFlags: 0
