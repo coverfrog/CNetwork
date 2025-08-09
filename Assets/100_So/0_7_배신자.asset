@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86088a59a31541db9dee0d97b30e5b16, type: 3}
   m_Name: "0_7_\uBC30\uC2E0\uC790"
   m_EditorClassIdentifier: 
-  mCodeName: 
-  mDisplayName: 
-  mDescription: 
+  mCodeName: "0_7_\uBC30\uC2E0\uC790"
+  mDisplayName: "\uBC30\uC2E0\uC790"
+  mDescription: "\uBC30\uC2E0\uC790"
   mFrontTexture:
     m_AssetGUID: e66eeeecd7f3607479adaca37110f3ee
     m_SubObjectName: 

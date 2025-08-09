@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using System;
+using Unity.Collections;
 using UnityEngine;
 
 public static class AvenueCardDataConverter
@@ -19,7 +20,7 @@ public static class AvenueCardDataConverter
         return result;
     }
 
-    public static AvenueCardData ToData(AvenueCardNetworkData networkData)
+    public static AvenueCardData ToData(AvenueCardNetworkData networkData, Action<AvenueCardData> onLoaded)
     {
         var result = new AvenueCardData()
         {
@@ -29,7 +30,7 @@ public static class AvenueCardDataConverter
             description = networkData.description.Value,
         };
         
-        result.Load(networkData.frontTexturePath);
+        result.Load(networkData.frontTexturePath, onLoaded);
         
         return result;
     }

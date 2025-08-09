@@ -71,6 +71,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497a27fc124949ca88f557f671a55b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  mNetworkObject: {fileID: 2031141635723908798}
+  mNetworkData:
+    codeName: 
+    displayName: 
+    description: 
+    frontTexture: {fileID: 0}
 --- !u!1 &1846074668712171862
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,5 +3,16 @@ using UnityEngine;
 
 public class AvenueCard : NetworkBehaviour
 {
-    [SerializeField] private AvenueCardNetworkData mNetworkData;
+    [SerializeField] private NetworkObject mNetworkObject;
+    [SerializeField] private AvenueCardData mNetworkData;
+
+    public void SetData(AvenueCardData data)
+    {
+        mNetworkData = data;
+    }
+
+    public void Spawn()
+    {
+        mNetworkObject.Spawn();
+    }
 }

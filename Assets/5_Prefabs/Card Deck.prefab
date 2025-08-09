@@ -71,5 +71,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  mCardOrigin: {fileID: 1384046956367687889, guid: aad8ee511af7a2c40b769bf632e329ea, type: 3}
   mDataSoGroup: {fileID: 11400000, guid: ae16c74b21a15f9449525923cd57e4e5, type: 2}
   mDataList: []

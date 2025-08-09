@@ -14,11 +14,13 @@ public class AvenueCardData
     [Header("[ Texture ]")]
     public Texture2D frontTexture;
 
-    public void Load(FixedString512Bytes frontTexturePath)
+    public void Load(FixedString512Bytes frontTexturePath, Action<AvenueCardData> onLoaded)
     {
         Addressables.LoadAssetAsync<Texture2D>(frontTexturePath.Value).Completed += ao =>
         {
             frontTexture = ao.Result;
+            
+            onLoaded?.Invoke(this);
         };
     }
 }
