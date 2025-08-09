@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SceneAvenueGameHandler : SceneHandler
 {
-    [SerializeField] private CardDeck mCardDeckOrigin;
+    [SerializeField] private CardAvenueDeck mCardDeckOrigin;
     
-    private CardDeck _mCardDeck;
+    private CardAvenueDeck _mCardDeck;
     
     public override void OnSceneLoaded(bool isServer, List<ulong> idList)
     {
@@ -16,13 +16,10 @@ public class SceneAvenueGameHandler : SceneHandler
         {
             return;
         }
-        
-        foreach (ulong id in idList)
-        {
-            Debug.Log(id);
-        }
 
+        // - deck ins init
         _mCardDeck = Instantiate(mCardDeckOrigin);
         _mCardDeck.GetComponent<NetworkObject>().Spawn();
+        _mCardDeck.Init();
     }
 }

@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8dcc3fa4854bbdad1652b01b5d9314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCardDeck: {fileID: 1787830435371197829, guid: 3579bddeb01a4d14581619b40ee30ca2, type: 3}
+  mCardDeckOrigin: {fileID: 1787830435371197829, guid: 3579bddeb01a4d14581619b40ee30ca2, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
