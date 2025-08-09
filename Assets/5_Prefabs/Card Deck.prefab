@@ -71,6 +71,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  mCardHeight: 0.02
+  mBackTexture:
+    m_AssetGUID: 04ba0fec42e32874aaf6f75d9f0a83c8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  mNetworkObject: {fileID: 7727849419418350289}
   mCardOrigin: {fileID: 1384046956367687889, guid: aad8ee511af7a2c40b769bf632e329ea, type: 3}
   mDataSoGroup: {fileID: 11400000, guid: ae16c74b21a15f9449525923cd57e4e5, type: 2}
-  mDataList: []
+  mCardList: []

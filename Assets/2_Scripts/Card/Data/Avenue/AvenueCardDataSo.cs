@@ -23,6 +23,6 @@ public class AvenueCardDataSo : ScriptableObject
     [SerializeField] private AssetReferenceTexture2D mFrontTexture;
     
     public AssetReferenceTexture2D FrontTexture => mFrontTexture;
-
+    
     #endregion
 }

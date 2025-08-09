@@ -5,6 +5,7 @@ using UnityEngine;
 public class SceneAvenueGameHandler : SceneHandler
 {
     [SerializeField] private AvenueCardDeck mCardDeckOrigin;
+    [SerializeField] private Transform mCardDeckSpawnPoint;
     
     private AvenueCardDeck _mCardDeck;
     
@@ -19,7 +20,8 @@ public class SceneAvenueGameHandler : SceneHandler
 
         // - deck ins init
         _mCardDeck = Instantiate(mCardDeckOrigin);
-        _mCardDeck.GetComponent<NetworkObject>().Spawn();
-        _mCardDeck.Init_Request();
+        _mCardDeck.Spawn();
+        _mCardDeck.Init_Request(mCardDeckSpawnPoint.position);
     }
+
 }

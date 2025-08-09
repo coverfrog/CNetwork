@@ -30,7 +30,7 @@ public static class AvenueCardDataConverter
             description = networkData.description.Value,
         };
         
-        result.Load(networkData.frontTexturePath, onLoaded);
+        result.Load(networkData, onLoaded);
         
         return result;
     }

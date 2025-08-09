@@ -13,14 +13,39 @@ public class AvenueCardData
     
     [Header("[ Texture ]")]
     public Texture2D frontTexture;
+    public Texture2D backTexture;
 
-    public void Load(FixedString512Bytes frontTexturePath, Action<AvenueCardData> onLoaded)
+    private int _loadedCount;
+    private const int LoadTargetCount = 2;
+
+    private Action<AvenueCardData> _onLoadedAction;
+    
+    public void Load(AvenueCardNetworkData networkData, Action<AvenueCardData> onLoaded)
     {
-        Addressables.LoadAssetAsync<Texture2D>(frontTexturePath.Value).Completed += ao =>
+        _onLoadedAction = onLoaded;
+        
+        Addressables.LoadAssetAsync<Texture2D>(networkData.frontTexturePath.Value).Completed += ao =>
         {
             frontTexture = ao.Result;
-            
-            onLoaded?.Invoke(this);
+            OnLoaded();
         };
+        
+        Addressables.LoadAssetAsync<Texture2D>(networkData.backTexturePath.Value).Completed += ao =>
+        {
+            backTexture = ao.Result;
+            OnLoaded();
+        };
+    }
+
+    private void OnLoaded()
+    {
+        ++_loadedCount;
+
+        if (_loadedCount != LoadTargetCount)
+        {
+            return;
+        }
+        
+        _onLoadedAction?.Invoke(this);
     }
 }

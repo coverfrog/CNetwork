@@ -73,6 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   mNetworkObject: {fileID: 2031141635723908798}
+  mMeshRender: {fileID: 2389717022724884051}
   mNetworkData:
     codeName: 
     displayName: 

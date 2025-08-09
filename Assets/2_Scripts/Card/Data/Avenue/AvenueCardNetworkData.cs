@@ -16,6 +16,7 @@ public struct AvenueCardNetworkData : INetworkSerializable, IEquatable<AvenueCar
     #region Texture
 
     public FixedString512Bytes frontTexturePath;
+    public FixedString512Bytes backTexturePath;
 
     #endregion
     
@@ -28,6 +29,7 @@ public struct AvenueCardNetworkData : INetworkSerializable, IEquatable<AvenueCar
         
         // texture
         serializer.SerializeValue(ref frontTexturePath);
+        serializer.SerializeValue(ref backTexturePath);
     }
 
     public bool Equals(AvenueCardNetworkData other)
