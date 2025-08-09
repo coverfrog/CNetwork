@@ -11,8 +11,10 @@ public class AvenueCard : NetworkBehaviour
         mNetworkData = data;
     }
 
-    public void Spawn()
+    public ulong Spawn()
     {
         mNetworkObject.Spawn();
+
+        return mNetworkObject.NetworkObjectId;
     }
 }

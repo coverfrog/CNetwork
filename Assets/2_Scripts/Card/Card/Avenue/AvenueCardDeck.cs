@@ -21,21 +21,27 @@ public class AvenueCardDeck : NetworkBehaviour
         
         foreach (AvenueCardNetworkData networkData in networkDataList)
         {
-            // - data set
-            _ = AvenueCardDataConverter.ToData(networkData, data =>
-            {
-                // - ins
-                AvenueCard card = Instantiate(mCardOrigin);
-                card.SetData(data);
-                card.Spawn();
-            });
+            // - ins
+            AvenueCard card = Instantiate(mCardOrigin);
+            ulong id = card.Spawn();
+            
+            Apply_Rpc(id, networkData);
         }
     }
 
-    // [Rpc(SendTo.Everyone)]
-    // private void Init_Request_Rpc(AvenueCardNetworkData networkData)
-    // {
-    //     
-    //     mDataList.Add(data);
-    // }
+    [Rpc(SendTo.Everyone)]
+    private void Apply_Rpc(ulong id, AvenueCardNetworkData networkData)
+    {
+        // - net
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects[id].TryGetComponent(out AvenueCard card))
+        {
+            return;
+        }
+        
+        // - card
+        AvenueCardDataConverter.ToData(networkData, data =>
+        {
+            card.SetData(data);
+        });
+    }
 }
