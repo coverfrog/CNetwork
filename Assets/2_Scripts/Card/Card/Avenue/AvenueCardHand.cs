@@ -23,13 +23,5 @@ public class AvenueCardHand : NetworkBehaviour
         _mGameHandler = gameHandler;
 
         Vector3 position = 4.5f * (IsServer ? Vector3.down : Vector3.up);
-        
-        SetPosition(position);
-    }
-    
-    [Rpc(SendTo.Everyone)]
-    private void SetPosition(Vector3 position)
-    {
-        transform.position = position;
     }
 }

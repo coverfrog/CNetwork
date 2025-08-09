@@ -20,7 +20,9 @@ public class AvenueCardHandGroup : MonoBehaviour
     {
         foreach (ulong id in NetworkManager.Singleton.ConnectedClientsIds)
         {
-            Debug.Log(id);
+            bool isMine = id == NetworkManager.Singleton.LocalClientId;
+            
+            Debug.Log(isMine);
         }
     }
 }
