@@ -26,35 +26,39 @@ public class AvenueCardDeck : NetworkBehaviour
     
     private Vector3 _mSpawnOriginPoint;
 
-    private Action _mOnEnded;
-    
-    
+    private Action _mOnEnd;
+
     public ulong Spawn()
     {
         mNetworkObject.Spawn();
         return mNetworkObject.NetworkObjectId;
     }
     
-    public void Init_Request(Vector3 spawnOriginPoint, Action onEnded)
+    public void Init_Request(SceneAvenueGameHandler handler)
     {
         if (!IsServer)
         {
             return;
         }
 
+        // - get list
         List<AvenueCardNetworkData> networkDataList = mDataSoGroup.GetNetworkDataList();
 
+        // - action ( server only )
+        _mOnEnd = handler.OnDeckInitEnd;
+        
+        // - count
         _mCardLoadedCount = 0;
         _mCardLoadTargetCount = networkDataList.Count;
 
         _mPlayerLoadedCount = 0;
         _mPlayerLoadTargetCount = NetworkManager.Singleton.ConnectedClients.Count;
 
-        _mOnEnded = onEnded;
-        
-        Set_OriginPoint_Rpc(spawnOriginPoint);
+        // - set rpc
+        Set_OriginPoint_Rpc(handler.CardDeckSpawnPoint);
         Set_Cursor_Rpc(networkDataList.Count - 1);
         
+        // - spawn
         foreach (AvenueCardNetworkData networkData in networkDataList)
         {
             // - ins
@@ -74,10 +78,11 @@ public class AvenueCardDeck : NetworkBehaviour
         return mCardList[_mCursor];
     }
     
-    private void OnEnd()
+    [Rpc(SendTo.Server)]
+    private void End_Rpc()
     {
         // -- end
-        _mOnEnded?.Invoke();
+        _mOnEnd?.Invoke();
     }
 
     [Rpc(SendTo.Everyone)]
@@ -91,6 +96,7 @@ public class AvenueCardDeck : NetworkBehaviour
     {
         _mCursor = value;
     }
+    
 
     [Rpc(SendTo.Everyone)]
     private void Add_Card_Rpc(ulong netId)
@@ -105,11 +111,6 @@ public class AvenueCardDeck : NetworkBehaviour
         mCardList.Add(card);
     }
 
-    [Rpc(SendTo.Everyone)]
-    public void Set_Cursor_Add_Rpc(bool isAdd)
-    {
-        _mCursor = Mathf.Clamp(_mCursor + (isAdd ? +1 : -1), 0, int.MaxValue);
-    }
     
     [Rpc(SendTo.Everyone)]
     private void Apply_Rpc(ulong cardId, AvenueCardNetworkData networkData)
@@ -128,8 +129,6 @@ public class AvenueCardDeck : NetworkBehaviour
         {
             // - pos set
             Vector3 pos = _mSpawnOriginPoint + Vector3.up * data.deckCursor * mCardHeight;
-            
-  
             
             // - set
             card
@@ -156,7 +155,16 @@ public class AvenueCardDeck : NetworkBehaviour
             }
 
             // - end
-            OnEnd();
+            End_Rpc();
         });
+    }
+    
+    
+    [Rpc(SendTo.Everyone)]
+    public void Draw_Rpc()
+    {
+        mCardList.RemoveAt(_mCursor);
+        
+        _mCursor = Mathf.Max(_mCursor- 1, 0);
     }
 }

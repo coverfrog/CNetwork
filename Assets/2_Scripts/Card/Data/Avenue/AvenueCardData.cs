@@ -16,7 +16,6 @@ public class AvenueCardData
     public Texture2D backTexture;
 
     [Header("[ Id ]")] 
-    public ulong netId;
     public int deckCursor;
     
     private int _loadedCount;

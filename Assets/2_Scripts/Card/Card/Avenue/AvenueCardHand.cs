@@ -6,40 +6,30 @@ public class AvenueCardHand : NetworkBehaviour
 {
     [SerializeField] private NetworkObject mNetworkObject;
     [Space] 
-    [SerializeField] private AvenueCardHandData mData;
     [SerializeField] private List<AvenueCard> mCardList = new List<AvenueCard>();
-    
-    public AvenueCardHandData Data => mData;
+
+    private AvenueCardDeck _mDeck;
+    private SceneAvenueGameHandler _mGameHandler;
     
     public ulong Spawn()
     {
         mNetworkObject.Spawn();
         return mNetworkObject.NetworkObjectId;
     }
+
+    public void Init_Request(SceneAvenueGameHandler gameHandler, AvenueCardDeck deck)
+    {
+        _mDeck = deck;
+        _mGameHandler = gameHandler;
+
+        Vector3 position = 4.5f * (IsServer ? Vector3.down : Vector3.up);
+        
+        SetPosition(position);
+    }
     
-    public AvenueCardHand SetData(AvenueCardHandData data)
-    {
-        mData = data;
-        return this;    
-    }
-
-    public AvenueCardHand SetName(string value)
-    {
-        gameObject.name = value;
-        return this;    
-    }
-
     [Rpc(SendTo.Everyone)]
-    public void Add_Rpc(Vector3 position, ulong id)
+    private void SetPosition(Vector3 position)
     {
-        Debug.Log(id);
-        // if (!NetCustomUtil.FindSpawned(id, out AvenueCard card))
-        // {
-        //     return;
-        // }
-        //
-        // card.SetPosition(position);
-        //
-        // mCardList.Add(card);
+        transform.position = position;
     }
 }
