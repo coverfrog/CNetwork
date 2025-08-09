@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_GUID: 1f4503cfd0187834cae8c68fa21ead39
+  m_SerializeEntries:
+  - m_GUID: 537f1b42275ce1544ad3c4bf43ae1b61
+    m_Address: "Assets/3_Images/Card/1_3_\uBC29\uD574 \uACF5\uC791\uC6D0.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d490a9bf6970cd48b997952bcef6852
+    m_Address: "Assets/3_Images/Card/1_0_\uC774\uC911 \uCCA9\uC790.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 92bd3dad6e3b6e345836f35f266f03d5
+    m_Address: "Assets/3_Images/Card/1_6_\uC870\uC218.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 990e41f7adffe00438ae1f7fb823a709
+    m_Address: "Assets/3_Images/Card/1_2_\uC554\uD638 \uD574\uB3C5\uC790.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e6e6b8d6ab387b42b5db7a3ac52a795
+    m_Address: "Assets/3_Images/Card/1_4_\uBB34\uBAA8\uD55C \uC694\uC6D0.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0292ebefe2fec545b98c52e797ed734
+    m_Address: "Assets/3_Images/Card/1_1_\uC9D1\uD589\uC790.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbbebe105b44bd147aa27372cfe6c2b4
+    m_Address: "Assets/3_Images/Card/1_5_\uAC10\uC2DC\uC790.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e66eeeecd7f3607479adaca37110f3ee
+    m_Address: "Assets/3_Images/Card/1_7_\uBC30\uC2E0\uC790.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: d81a192faf210a945bf96e63129526e0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9102b133e14e98f428e456ae9269d972, type: 2}
+    - {fileID: 11400000, guid: c952348bec83cf742923e3bedf4de26d, type: 2}

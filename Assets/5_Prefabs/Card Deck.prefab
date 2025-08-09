@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9178528268718992248}
   - component: {fileID: 7727849419418350289}
-  - component: {fileID: 1787830435371197829}
+  - component: {fileID: 7075238501133388882}
   m_Layer: 0
   m_Name: Card Deck
   m_TagString: Untagged
@@ -58,7 +58,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &1787830435371197829
+--- !u!114 &7075238501133388882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,10 +67,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 414017102655972673}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b9976c10f1f47d39455ac5fbca94db1, type: 3}
+  m_Script: {fileID: 11500000, guid: d82f9f88df0e466e8cec12d30734b947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  mCardOrigin: {fileID: 1384046956367687889, guid: aad8ee511af7a2c40b769bf632e329ea, type: 3}
-  mDeckDataSo: {fileID: 11400000, guid: 1ac51772f46a27c4d974e07eb4adab6d, type: 2}
-  mCardDataSoList: []
+  mDataSoGroup: {fileID: 11400000, guid: ae16c74b21a15f9449525923cd57e4e5, type: 2}
+  mDataList: []
