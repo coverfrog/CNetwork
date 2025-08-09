@@ -15,8 +15,6 @@ public class AvenueCardDeck : NetworkBehaviour
     [Space]
     [SerializeField] private List<AvenueCard> mCardList = new List<AvenueCard>();
 
-    private List<AvenueCardNetworkData> _mNetworkDataList;
-    
     private int _mCardLoadedCount;
     private int _mCardLoadTargetCount;
 
@@ -97,7 +95,6 @@ public class AvenueCardDeck : NetworkBehaviour
             card
                 .SetData(data)
                 .SetName(data.displayName)
-                .SetParent(transform)
                 .SetPosition(pos)
                 .SetFrontTexture(data.frontTexture)
                 .SetBackTexture(data.backTexture);

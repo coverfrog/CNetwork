@@ -22,15 +22,10 @@ public class AvenueCardDataSoGroup : ScriptableObject
         
         // -- shuffle
         int count = source.Count;
-        
-        for (int i = 0; i < 2; i++)
+        for (int i = count - 1; i > 0; i--)
         {
-            for (int j = 0; j < count; j++)
-            {
-                int r =  Random.Range(0, count);
-
-                (source[i], source[r]) = (source[r], source[i]);
-            }
+            int r = Random.Range(0, i + 1);
+            (source[i], source[r]) = (source[r], source[i]);
         }
         
         // -- convert

@@ -23,12 +23,6 @@ public class AvenueCard : NetworkBehaviour
         return this;
     }
     
-    public AvenueCard SetParent(Transform parent)
-    {
-        transform.SetParent(parent);
-        return this;
-    }
-
     public AvenueCard SetPosition(Vector3 position)
     {
         transform.position = position;
