@@ -14,6 +14,8 @@ public class AvenueCard : NetworkBehaviour
     [SerializeField] private bool mIsMe;
     [SerializeField] private AvenueCardData mData;
 
+    public AvenueCardData Data => mData;
+    
     private readonly Queue<Vector3> _mPositionQueue = new Queue<Vector3>();
     
     public AvenueCard SetData(AvenueCardData data)

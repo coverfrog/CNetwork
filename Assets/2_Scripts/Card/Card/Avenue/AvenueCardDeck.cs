@@ -26,15 +26,13 @@ public class AvenueCardDeck : NetworkBehaviour
     
     private Vector3 _mSpawnOriginPoint;
 
-    private Action _mOnEnd;
-
     public ulong Spawn()
     {
         mNetworkObject.Spawn();
         return mNetworkObject.NetworkObjectId;
     }
     
-    public void Init_Request(Vector3 originPosition, Action onEnd)
+    public void Init_Request(Vector3 originPosition)
     {
         if (!IsServer)
         {
@@ -44,9 +42,6 @@ public class AvenueCardDeck : NetworkBehaviour
         // - get list
         List<AvenueCardNetworkData> networkDataList = mDataSoGroup.GetNetworkDataList();
 
-        // - action ( server only )
-        _mOnEnd = onEnd;
-        
         // - count
         _mCardLoadedCount = 0;
         _mCardLoadTargetCount = networkDataList.Count;
@@ -81,8 +76,14 @@ public class AvenueCardDeck : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void End_Rpc()
     {
-        // -- end
-        _mOnEnd?.Invoke();
+        // -- pos
+        foreach (AvenueCard card in mCardList)
+        {
+            // - pos set
+            Vector3 pos = _mSpawnOriginPoint + Vector3.up * card.Data.deckCursor * mCardHeight;
+
+            card.SetPosition(pos);
+        }
     }
 
     [Rpc(SendTo.Everyone)]
@@ -128,13 +129,13 @@ public class AvenueCardDeck : NetworkBehaviour
         AvenueCardDataConverter.ToData(networkData, data =>
         {
             // - pos set
-            Vector3 pos = _mSpawnOriginPoint + Vector3.up * data.deckCursor * mCardHeight;
+            // Vector3 pos = _mSpawnOriginPoint + Vector3.up * data.deckCursor * mCardHeight;
             
             // - set
             card
                 .SetData(data)
                 .SetName(data.displayName)
-                .SetPosition(pos)
+                //.SetPosition(pos)
                 .SetFrontTexture(data.frontTexture)
                 .SetBackTexture(data.backTexture);
             

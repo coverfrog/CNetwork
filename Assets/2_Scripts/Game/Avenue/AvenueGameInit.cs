@@ -8,10 +8,9 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
         
         context.deck = Instantiate(context.deckOrigin);
         context.deck.Spawn();
-        context.deck.Init_Request(context.deckOriginTr.position, () =>
-        {
-            handler.StateChange(AvenueGameState.TurnBegin);
-        });
+        context.deck.Init_Request(context.deckOriginTr.position);
+        
+        handler.StateChange(AvenueGameState.TurnBegin);
     }
 
     public void OnExit(AvenueGameHandler handler, AvenueGameContext context)
