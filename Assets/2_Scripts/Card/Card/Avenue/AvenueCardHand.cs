@@ -44,7 +44,7 @@ public class AvenueCardHand : NetworkBehaviour
         
         for (int i = 0; i < count; i++)
         {
-            float p = i / (float)(count - 1);
+            float p = count <= 1 ? 0.5f : i / (float)(count - 1);
 
             float l = Mathf.Lerp(-width, +width, p);
 
