@@ -33,6 +33,6 @@ public class SceneAvenueGameHandler : SceneHandler
     public void OnDeckInitEnd()
     {
         // - hand ins init ( server only )
-        mCardHandGroup.Init_Request();
+        mCardHandGroup.Init_Request(_mCardDeck);
     }
 }

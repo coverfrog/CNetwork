@@ -17,11 +17,8 @@ public class AvenueCardHand : NetworkBehaviour
         return mNetworkObject.NetworkObjectId;
     }
 
-    public void Init_Request(SceneAvenueGameHandler gameHandler, AvenueCardDeck deck)
+    public void Init_Request(AvenueCardDeck deck)
     {
-        _mDeck = deck;
-        _mGameHandler = gameHandler;
-
-        Vector3 position = 4.5f * (IsServer ? Vector3.down : Vector3.up);
+        
     }
 }

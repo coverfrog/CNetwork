@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Steamworks;
+using Steamworks.Data;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -16,13 +18,23 @@ public class AvenueCardHandGroup : MonoBehaviour
     [Space]
     [ShowInInspector, Readonly] private Dictionary<bool, AvenueCardHand> _handDict = new Dictionary<bool, AvenueCardHand>();
 
-    public void Init_Request()
+    public void Init_Request(AvenueCardDeck deck)
     {
-        foreach (ulong id in NetworkManager.Singleton.ConnectedClientsIds)
+        Lobby? current = MultiManager.Instance.Current;
+        
+        if (!current.HasValue)
         {
-            bool isMine = id == NetworkManager.Singleton.LocalClientId;
+            return;
+        }
+
+        foreach (Friend friend in current.Value.Members)
+        {
+            AvenueCardHand hand = Instantiate(mCardHandOrigin);
+            hand.Spawn();
             
-            Debug.Log(isMine);
+            bool isMe = friend.IsMe;
+            
+            hand.Init_Request(deck);
         }
     }
 }
