@@ -9,6 +9,7 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
         context.deck = Instantiate(context.deckOrigin);
         context.deck.Spawn();
         context.deck.Init_Request(context.deckOriginTr.position);
+        context.handGroup.Init_Request(context);
         
         handler.StateChange(AvenueGameState.TurnBegin);
     }

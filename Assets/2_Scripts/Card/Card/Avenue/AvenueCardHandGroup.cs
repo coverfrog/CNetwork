@@ -18,13 +18,13 @@ public class AvenueCardHandGroup : MonoBehaviour
             return;
         }
 
-        int idx = 0;
-        
         Vector3[] spawnPoints = new Vector3[2]
         {
             context.handMeOriginTr.position,
             context.handOtherOriginTr.position,
         };
+        
+        int spawnPointIndex = 0;
 
         foreach (Friend friend in current.Value.Members)
         {
@@ -33,8 +33,7 @@ public class AvenueCardHandGroup : MonoBehaviour
             hand.Spawn();
             
             // - point
-            int originIdx = friend.Id == SteamClient.SteamId ? 0 : 1;
-            hand.Set_Origin_Rpc(spawnPoints[originIdx]);
+            hand.Set_Origin_Rpc(spawnPoints[spawnPointIndex++]);
             
             for (int i = 0; i < context.initDrawCount; i++)
             {
@@ -46,9 +45,6 @@ public class AvenueCardHandGroup : MonoBehaviour
                 ulong id = card.NetworkObjectId;
                 hand.Add_Card_Rpc(id);
             }
-            
-            // - cursor
-            idx++;
             
             // - spread
             hand.Spread_Rpc();
