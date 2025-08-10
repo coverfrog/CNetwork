@@ -50,16 +50,12 @@ public class AvenueCardHandGroup : NetworkBehaviour
                 hand.Add_Card_Rpc(cardId);
             }
         }
-        
+
+        // - origin
+        Set_Origin_Rpc(context.handMeOriginTr.position, context.handOtherOriginTr.position);
+
         foreach (AvenueCardHand avenueCardHand in mHandList)
         {
-            Debug.Log(avenueCardHand.IsMe);
-            
-            // - set
-            avenueCardHand.Set_Origin_Rpc(avenueCardHand.IsMe ?
-                context.handMeOriginTr.position : 
-                context.handOtherOriginTr.position);
-            
             // - spread
             avenueCardHand.Spread_Rpc();
         }
@@ -88,5 +84,13 @@ public class AvenueCardHandGroup : NetworkBehaviour
         hand.Set_IsMe(isMe);
     }
 
-
+    [Rpc(SendTo.Everyone)]
+    private void Set_Origin_Rpc(Vector3 me, Vector3 other)
+    {
+        foreach (AvenueCardHand avenueCardHand in mHandList)
+        {
+            // - set
+            avenueCardHand.Set_Origin(avenueCardHand.IsMe ? me : other);
+        }
+    }
 }

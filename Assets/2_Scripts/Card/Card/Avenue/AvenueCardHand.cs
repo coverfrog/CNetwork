@@ -24,8 +24,7 @@ public class AvenueCardHand : NetworkBehaviour
         mIsMe = value;
     }
 
-    [Rpc(SendTo.Everyone)]
-    public void Set_Origin_Rpc(Vector3 position)
+    public void Set_Origin(Vector3 position)
     {
         mOriginPoint = position;
     }
