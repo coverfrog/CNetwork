@@ -77,10 +77,11 @@ public class AvenueCardDeck : NetworkBehaviour
     private void End_Rpc()
     {
         // -- pos
-        foreach (AvenueCard card in mCardList)
+        for (int i = 0; i < mCardList.Count; i++)
         {
+            AvenueCard card = mCardList[i];
             // - pos set
-            Vector3 pos = _mSpawnOriginPoint + Vector3.up * card.Data.deckCursor * mCardHeight;
+            Vector3 pos = _mSpawnOriginPoint + Vector3.up * i * mCardHeight;
 
             card.SetPosition(pos);
         }
