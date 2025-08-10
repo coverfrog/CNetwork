@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mContext:
-    initDrawCount: 1
+    initDrawCount: 4
     deckOrigin: {fileID: 7075238501133388882, guid: 3579bddeb01a4d14581619b40ee30ca2, type: 3}
     handOrigin: {fileID: 6976411956442013382, guid: 095617da3faba3b4ab4442f2a7769fc0, type: 3}
     handGroupOrigin: {fileID: 1961303755721042251, guid: 8eb5bd01aa0b59a43a8d4b356d74b2f9, type: 3}

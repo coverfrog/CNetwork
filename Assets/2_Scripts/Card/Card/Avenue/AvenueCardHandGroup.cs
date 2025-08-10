@@ -10,12 +10,15 @@ using Readonly = Sirenix.OdinInspector.ReadOnlyAttribute;
 public class AvenueCardHandGroup : NetworkBehaviour
 {
     [SerializeField] private NetworkObject mNetworkObject;
-
+    [Space]
+    [SerializeField] private List<AvenueCardHand> mHandList = new List<AvenueCardHand>();
+    
     public ulong Spawn()
     {
         mNetworkObject.Spawn();
         return mNetworkObject.NetworkObjectId;
     }
+    
 
     public void Init_Request(AvenueGameContext context)
     {
@@ -33,7 +36,8 @@ public class AvenueCardHandGroup : NetworkBehaviour
             AvenueCardHand hand = Instantiate(context.handOrigin);
             ulong handId = hand.Spawn();
 
-            Set_IsMe_Rpc(handId, (ulong)friend.Id);
+            Add_Hand_Rpc(handId);
+            Set_IsMe_Rpc(handId, friend.Id);
             
             for (int i = 0; i < context.initDrawCount; i++)
             {
@@ -45,10 +49,29 @@ public class AvenueCardHandGroup : NetworkBehaviour
                 ulong cardId = card.NetworkObjectId;
                 hand.Add_Card_Rpc(cardId);
             }
+        }
+        
+        foreach (AvenueCardHand avenueCardHand in mHandList)
+        {
+            // - set
+            avenueCardHand.Set_Origin_Rpc(avenueCardHand.IsMe ?
+                context.handMeOriginTr.position : 
+                context.handOrigin.transform.position);
             
             // - spread
-            hand.Spread_Rpc();
+            avenueCardHand.Spread_Rpc();
         }
+    }
+    
+    [Rpc(SendTo.Everyone)]
+    private void Add_Hand_Rpc(ulong handId)
+    {
+        if (!NetCustomUtil.FindSpawned(handId, out AvenueCardHand hand))
+        {
+            return;
+        }
+        
+        mHandList.Add(hand);
     }
     
     [Rpc(SendTo.Everyone)]
@@ -60,7 +83,8 @@ public class AvenueCardHandGroup : NetworkBehaviour
         }
         
         bool isMe = steamId == SteamClient.SteamId;
-        
         hand.Set_IsMe(isMe);
     }
+
+
 }

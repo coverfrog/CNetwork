@@ -7,9 +7,11 @@ public class AvenueCardHand : NetworkBehaviour
     [SerializeField] private float mCardSpace = 1.5f;
     [SerializeField] private NetworkObject mNetworkObject;
     [Space] 
-    [SerializeField] private bool isMe;
+    [SerializeField] private bool mIsMe;
     [SerializeField] private Vector3 mOriginPoint = Vector3.zero;
     [SerializeField] private List<AvenueCard> mCardList = new List<AvenueCard>();
+
+    public bool IsMe => mIsMe;
     
     public ulong Spawn()
     {
@@ -19,7 +21,7 @@ public class AvenueCardHand : NetworkBehaviour
 
     public void Set_IsMe(bool value)
     {
-        isMe = value;
+        mIsMe = value;
     }
 
     [Rpc(SendTo.Everyone)]
