@@ -1,4 +1,6 @@
-﻿using Unity.Netcode;
+﻿using System;
+using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class AvenueCard : NetworkBehaviour
@@ -12,7 +14,7 @@ public class AvenueCard : NetworkBehaviour
     [SerializeField] private bool mIsMe;
     [SerializeField] private AvenueCardData mData;
 
-    public AvenueCardData Data => mData;
+    private readonly Queue<Vector3> _mPositionQueue = new Queue<Vector3>();
     
     public AvenueCard SetData(AvenueCardData data)
     {
@@ -28,7 +30,7 @@ public class AvenueCard : NetworkBehaviour
     
     public AvenueCard SetPosition(Vector3 position)
     {
-        transform.position = position;
+        _mPositionQueue.Enqueue(position);
         return this;
     }
 
@@ -48,5 +50,13 @@ public class AvenueCard : NetworkBehaviour
     {
         mNetworkObject.Spawn();
         return mNetworkObject.NetworkObjectId;
+    }
+
+    private void Update()
+    {
+        if (_mPositionQueue.TryDequeue(out Vector3 position))
+        {
+            transform.position = position;
+        }
     }
 }
