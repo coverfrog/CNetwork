@@ -42,7 +42,6 @@ public class AvenueCardHandGroup : NetworkBehaviour
             AvenueCardHand hand = Instantiate(context.handOrigin);
             hand.Spawn();
             
-            
             // - point
             hand.Set_Origin_Rpc(spawnPoints[_mSpawnPointIndex]);
             
@@ -65,7 +64,7 @@ public class AvenueCardHandGroup : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Everyone)]
+    [Rpc(SendTo.NotServer)]
     private void Set_Origin_Index_Rpc(int value)
     {
         _mSpawnPointIndex = value;
