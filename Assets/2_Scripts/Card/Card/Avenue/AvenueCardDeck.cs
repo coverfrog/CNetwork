@@ -137,7 +137,8 @@ public class AvenueCardDeck : NetworkBehaviour
                 .SetName(data.displayName)
                 //.SetPosition(pos)
                 .SetFrontTexture(data.frontTexture)
-                .SetBackTexture(data.backTexture);
+                .SetBackTexture(data.backTexture)
+                .SetDeckCursor(data.deckCursor);
             
             // - counter
             ++_mCardLoadedCount;

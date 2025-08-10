@@ -36,6 +36,12 @@ public class AvenueCard : NetworkBehaviour
         return this;
     }
 
+    public AvenueCard SetDeckCursor(int value)
+    {
+        mData.deckCursor = value;
+        return this;
+    }
+
     public AvenueCard SetFrontTexture(Texture texture)
     {
         mMeshRender.material.SetTexture(FrontTexture, texture);
