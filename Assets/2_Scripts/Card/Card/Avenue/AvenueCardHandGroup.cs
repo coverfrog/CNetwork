@@ -60,7 +60,7 @@ public class AvenueCardHandGroup : NetworkBehaviour
             hand.Spread_Rpc();
             
             // - index
-            Set_Origin_Index_Rpc(_mSpawnPointIndex + 1);
+            Set_Origin_Index_Rpc((_mSpawnPointIndex + 1) % spawnPoints.Length);
         }
     }
 
