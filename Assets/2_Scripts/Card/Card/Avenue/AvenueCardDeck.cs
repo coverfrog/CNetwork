@@ -34,7 +34,7 @@ public class AvenueCardDeck : NetworkBehaviour
         return mNetworkObject.NetworkObjectId;
     }
     
-    public void Init_Request(SceneAvenueGameHandler handler)
+    public void Init_Request(Vector3 originPosition, Action onEnd)
     {
         if (!IsServer)
         {
@@ -45,7 +45,7 @@ public class AvenueCardDeck : NetworkBehaviour
         List<AvenueCardNetworkData> networkDataList = mDataSoGroup.GetNetworkDataList();
 
         // - action ( server only )
-        _mOnEnd = handler.OnDeckInitEnd;
+        _mOnEnd = onEnd;
         
         // - count
         _mCardLoadedCount = 0;
@@ -55,7 +55,7 @@ public class AvenueCardDeck : NetworkBehaviour
         _mPlayerLoadTargetCount = NetworkManager.Singleton.ConnectedClients.Count;
 
         // - set rpc
-        Set_OriginPoint_Rpc(handler.CardDeckSpawnPoint);
+        Set_OriginPoint_Rpc(originPosition);
         Set_Cursor_Rpc(networkDataList.Count - 1);
         
         // - spawn

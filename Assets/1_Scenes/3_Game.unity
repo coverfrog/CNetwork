@@ -151,6 +151,50 @@ Transform:
   - {fileID: 892890787}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &232721728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 232721730}
+  - component: {fileID: 232721729}
+  m_Layer: 0
+  m_Name: Avenue Card Hand Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &232721729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232721728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b38c964de4c3546986b64b546c8d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &232721730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232721728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &408549866
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +348,87 @@ Transform:
   - {fileID: 884292252}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &717280731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717280732}
+  - component: {fileID: 717280734}
+  - component: {fileID: 717280733}
+  - component: {fileID: 717280735}
+  m_Layer: 0
+  m_Name: Avenue Game Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &717280732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717280731}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &717280733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717280731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1c296056f043408bf8b088418352af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &717280734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717280731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd4f8e4ad1af4c898fac0b1c5f1b0b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mContext:
+    initDrawCount: 4
+    deckOrigin: {fileID: 7075238501133388882, guid: 3579bddeb01a4d14581619b40ee30ca2, type: 3}
+    handOrigin: {fileID: 6976411956442013382, guid: 095617da3faba3b4ab4442f2a7769fc0, type: 3}
+    deckOriginTr: {fileID: 1701511956}
+    handMeOriginTr: {fileID: 645975974}
+    handOtherOriginTr: {fileID: 175233913}
+    handGroup: {fileID: 232721729}
+    deck: {fileID: 0}
+  mInit: {fileID: 717280733}
+  mTurnBegin: {fileID: 717280735}
+--- !u!114 &717280735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717280731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7a63ebdde74581b92361dbfdb0e861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &884292251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -733,7 +858,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1156701136}
   - component: {fileID: 1156701137}
-  - component: {fileID: 1156701138}
   m_Layer: 0
   m_Name: Scene Avenue Game Handler
   m_TagString: Untagged
@@ -768,25 +892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8dcc3fa4854bbdad1652b01b5d9314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCardDeckOrigin: {fileID: 7075238501133388882, guid: 3579bddeb01a4d14581619b40ee30ca2, type: 3}
-  mCardHandGroup: {fileID: 1156701138}
-  mCardDeckSpawnPoint: {fileID: 1701511956}
---- !u!114 &1156701138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1156701135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b38c964de4c3546986b64b546c8d1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mInitDrawCount: 4
-  mCardHandOrigin: {fileID: 6976411956442013382, guid: 095617da3faba3b4ab4442f2a7769fc0, type: 3}
-  mCardHandSpawnPointMe: {fileID: 645975974}
-  mCardHandSpawnPointOther: {fileID: 175233913}
+  mGameHandler: {fileID: 717280734}
 --- !u!1 &1701511955
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +931,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 984391213}
   - {fileID: 408549868}
-  - {fileID: 1156701136}
   - {fileID: 1701511956}
   - {fileID: 645975974}
   - {fileID: 175233913}
+  - {fileID: 717280732}
+  - {fileID: 232721730}
+  - {fileID: 1156701136}

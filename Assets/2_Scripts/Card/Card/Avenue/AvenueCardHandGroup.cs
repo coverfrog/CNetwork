@@ -9,14 +9,7 @@ using Readonly = Sirenix.OdinInspector.ReadOnlyAttribute;
 
 public class AvenueCardHandGroup : MonoBehaviour
 {
-    [SerializeField] private uint mInitDrawCount = 4;
-    [Space]
-    [SerializeField] private AvenueCardHand mCardHandOrigin;
-    [Space] 
-    [SerializeField] private Transform mCardHandSpawnPointMe;
-    [SerializeField] private Transform mCardHandSpawnPointOther;
-
-    public void Init_Request(AvenueCardDeck deck)
+    public void Init_Request(AvenueGameContext context)
     {
         Lobby? current = MultiManager.Instance.Current;
         
@@ -29,24 +22,25 @@ public class AvenueCardHandGroup : MonoBehaviour
         
         Vector3[] spawnPoints = new Vector3[2]
         {
-            mCardHandSpawnPointMe.position,
-            mCardHandSpawnPointOther.position,
+            context.handMeOriginTr.position,
+            context.handOtherOriginTr.position,
         };
 
         foreach (Friend friend in current.Value.Members)
         {
             // - spawn
-            AvenueCardHand hand = Instantiate(mCardHandOrigin);
+            AvenueCardHand hand = Instantiate(context.handOrigin);
             hand.Spawn();
             
             // - point
-            hand.Set_Origin_Rpc(spawnPoints[idx]);
+            int originIdx = friend.Id == SteamClient.SteamId ? 0 : 1;
+            hand.Set_Origin_Rpc(spawnPoints[originIdx]);
             
-            for (int i = 0; i < mInitDrawCount; i++)
+            for (int i = 0; i < context.initDrawCount; i++)
             {
                 // - deck
-                AvenueCard card = deck.Draw();
-                deck.Draw_Rpc();
+                AvenueCard card = context.deck.Draw();
+                context.deck.Draw_Rpc();
             
                 // - hand 
                 ulong id = card.NetworkObjectId;
@@ -57,7 +51,7 @@ public class AvenueCardHandGroup : MonoBehaviour
             idx++;
             
             // - spread
-            hand.Spread();
+            hand.Spread_Rpc();
         }
     }
 }
