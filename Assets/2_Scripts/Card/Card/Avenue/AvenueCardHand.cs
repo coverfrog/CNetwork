@@ -7,6 +7,7 @@ public class AvenueCardHand : NetworkBehaviour
     [SerializeField] private float mCardSpace = 1.5f;
     [SerializeField] private NetworkObject mNetworkObject;
     [Space] 
+    [SerializeField] private bool isMe;
     [SerializeField] private Vector3 mOriginPoint = Vector3.zero;
     [SerializeField] private List<AvenueCard> mCardList = new List<AvenueCard>();
     
@@ -14,6 +15,12 @@ public class AvenueCardHand : NetworkBehaviour
     {
         mNetworkObject.Spawn();
         return mNetworkObject.NetworkObjectId;
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void Set_IsMe_Rpc(bool value)
+    {
+        isMe = value;
     }
 
     [Rpc(SendTo.Everyone)]
