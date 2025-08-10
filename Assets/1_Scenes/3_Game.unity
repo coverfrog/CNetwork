@@ -151,50 +151,6 @@ Transform:
   - {fileID: 892890787}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &232721728
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 232721730}
-  - component: {fileID: 232721729}
-  m_Layer: 0
-  m_Name: Avenue Card Hand Group
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &232721729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232721728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b38c964de4c3546986b64b546c8d1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &232721730
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232721728}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &408549866
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,11 +366,12 @@ MonoBehaviour:
     initDrawCount: 1
     deckOrigin: {fileID: 7075238501133388882, guid: 3579bddeb01a4d14581619b40ee30ca2, type: 3}
     handOrigin: {fileID: 6976411956442013382, guid: 095617da3faba3b4ab4442f2a7769fc0, type: 3}
+    handGroupOrigin: {fileID: 1961303755721042251, guid: 8eb5bd01aa0b59a43a8d4b356d74b2f9, type: 3}
     deckOriginTr: {fileID: 1701511956}
     handMeOriginTr: {fileID: 645975974}
     handOtherOriginTr: {fileID: 175233913}
-    handGroup: {fileID: 232721729}
     deck: {fileID: 0}
+    handGroup: {fileID: 0}
   mInit: {fileID: 717280733}
   mTurnBegin: {fileID: 717280735}
 --- !u!114 &717280735
@@ -935,5 +892,4 @@ SceneRoots:
   - {fileID: 645975974}
   - {fileID: 175233913}
   - {fileID: 717280732}
-  - {fileID: 232721730}
   - {fileID: 1156701136}

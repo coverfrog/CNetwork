@@ -7,8 +7,18 @@ using Unity.Netcode;
 using UnityEngine;
 using Readonly = Sirenix.OdinInspector.ReadOnlyAttribute;
 
-public class AvenueCardHandGroup : MonoBehaviour
+public class AvenueCardHandGroup : NetworkBehaviour
 {
+    [SerializeField] private NetworkObject mNetworkObject;
+
+    private int _mSpawnPointIndex;
+    
+    public ulong Spawn()
+    {
+        mNetworkObject.Spawn();
+        return mNetworkObject.NetworkObjectId;
+    }
+    
     public void Init_Request(AvenueGameContext context)
     {
         Lobby? current = MultiManager.Instance.Current;
@@ -18,14 +28,14 @@ public class AvenueCardHandGroup : MonoBehaviour
             return;
         }
 
+        Set_Origin_Index_Rpc(0);
+
         Vector3[] spawnPoints = new Vector3[2]
         {
             context.handMeOriginTr.position,
             context.handOtherOriginTr.position,
         };
         
-        int spawnPointIndex = 0;
-
         foreach (Friend friend in current.Value.Members)
         {
             // - spawn
@@ -33,7 +43,9 @@ public class AvenueCardHandGroup : MonoBehaviour
             hand.Spawn();
             
             // - point
-            hand.Set_Origin_Rpc(spawnPoints[spawnPointIndex++]);
+            hand.Set_Origin_Rpc(spawnPoints[_mSpawnPointIndex]);
+            
+            
             
             for (int i = 0; i < context.initDrawCount; i++)
             {
@@ -48,6 +60,15 @@ public class AvenueCardHandGroup : MonoBehaviour
             
             // - spread
             hand.Spread_Rpc();
+            
+            // - index
+            Set_Origin_Index_Rpc(_mSpawnPointIndex + 1);
         }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void Set_Origin_Index_Rpc(int value)
+    {
+        _mSpawnPointIndex = value;
     }
 }

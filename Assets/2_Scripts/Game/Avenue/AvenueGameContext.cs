@@ -10,15 +10,14 @@ public class AvenueGameContext
     [Header("-- Origin")]
     public AvenueCardDeck deckOrigin;
     public AvenueCardHand handOrigin;
+    public AvenueCardHandGroup handGroupOrigin;
 
     [Header("-- Origin Tr")]
     public Transform deckOriginTr;
     public Transform handMeOriginTr;
     public Transform handOtherOriginTr;
     
-    [Header("-- References")]
-    public AvenueCardHandGroup handGroup;
-    
     [Header("-- Runtime")]
     public AvenueCardDeck deck;
+    public AvenueCardHandGroup handGroup;
 }
