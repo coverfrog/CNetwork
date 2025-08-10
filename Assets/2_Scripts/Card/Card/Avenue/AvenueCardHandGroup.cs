@@ -15,8 +15,6 @@ public class AvenueCardHandGroup : MonoBehaviour
     [Space] 
     [SerializeField] private Transform mCardHandSpawnPointMe;
     [SerializeField] private Transform mCardHandSpawnPointOther;
-    [Space]
-    [ShowInInspector, Readonly] private Dictionary<bool, AvenueCardHand> _handDict = new Dictionary<bool, AvenueCardHand>();
 
     public void Init_Request(AvenueCardDeck deck)
     {
@@ -27,14 +25,39 @@ public class AvenueCardHandGroup : MonoBehaviour
             return;
         }
 
+        int idx = 0;
+        
+        Vector3[] spawnPoints = new Vector3[2]
+        {
+            mCardHandSpawnPointMe.position,
+            mCardHandSpawnPointOther.position,
+        };
+
         foreach (Friend friend in current.Value.Members)
         {
+            // - spawn
             AvenueCardHand hand = Instantiate(mCardHandOrigin);
             hand.Spawn();
             
-            bool isMe = friend.IsMe;
+            // - point
+            hand.Set_Origin_Rpc(spawnPoints[idx]);
             
-            hand.Init_Request(deck);
+            for (int i = 0; i < mInitDrawCount; i++)
+            {
+                // - deck
+                AvenueCard card = deck.Draw();
+                deck.Draw_Rpc();
+            
+                // - hand 
+                ulong id = card.NetworkObjectId;
+                hand.Add_Card_Rpc(id);
+            }
+            
+            // - cursor
+            idx++;
+            
+            // - spread
+            hand.Spread_Rpc();
         }
     }
 }

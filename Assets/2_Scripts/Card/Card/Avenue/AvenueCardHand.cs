@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class AvenueCardHand : NetworkBehaviour
 {
+    [SerializeField] private float mCardSpace = 1.5f;
     [SerializeField] private NetworkObject mNetworkObject;
     [Space] 
+    [SerializeField] private Vector3 mOriginPoint = Vector3.zero;
     [SerializeField] private List<AvenueCard> mCardList = new List<AvenueCard>();
-
-    private AvenueCardDeck _mDeck;
-    private SceneAvenueGameHandler _mGameHandler;
     
     public ulong Spawn()
     {
@@ -17,8 +16,39 @@ public class AvenueCardHand : NetworkBehaviour
         return mNetworkObject.NetworkObjectId;
     }
 
-    public void Init_Request(AvenueCardDeck deck)
+    [Rpc(SendTo.Everyone)]
+    public void Set_Origin_Rpc(Vector3 position)
     {
+        mOriginPoint = position;
+    }
+    
+    [Rpc(SendTo.Everyone)]
+    public void Add_Card_Rpc(ulong id)
+    {
+        if (!NetCustomUtil.FindSpawned(id, out AvenueCard card))
+        {
+            return;
+        }
         
+        mCardList.Add(card);
+
+        card.transform.position = mOriginPoint;
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void Spread_Rpc()
+    {
+        int count = mCardList.Count;
+        
+        float width = mCardSpace * count * 0.5f;
+        
+        for (int i = 0; i < count; i++)
+        {
+            float p = i / (float)(count - 1);
+
+            float l = Mathf.Lerp(-width, +width, p);
+            
+            mCardList[i].transform.position = mOriginPoint + new Vector3(l, 0, 0);
+        }
     }
 }
