@@ -38,6 +38,8 @@ public class AvenueCardHand : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     public void Spread_Rpc()
     {
+        Debug.Log("스프레드");
+        
         int count = mCardList.Count;
         
         float width = mCardSpace * count * 0.5f;
