@@ -57,6 +57,8 @@ public class AvenueCard : NetworkBehaviour
         if (_mPositionQueue.TryDequeue(out Vector3 position))
         {
             transform.position = position;
+            
+            Debug.Log(position);
         }
     }
 }
