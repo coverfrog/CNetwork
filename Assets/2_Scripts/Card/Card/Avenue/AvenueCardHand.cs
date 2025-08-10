@@ -35,11 +35,8 @@ public class AvenueCardHand : NetworkBehaviour
         card.transform.position = mOriginPoint;
     }
 
-    [Rpc(SendTo.Everyone)]
-    public void Spread_Rpc()
+    public void Spread()
     {
-        Debug.Log("스프레드");
-        
         int count = mCardList.Count;
         
         float width = mCardSpace * count * 0.5f;

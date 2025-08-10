@@ -57,7 +57,7 @@ public class AvenueCardHandGroup : MonoBehaviour
             idx++;
             
             // - spread
-            hand.Spread_Rpc();
+            hand.Spread();
         }
     }
 }
