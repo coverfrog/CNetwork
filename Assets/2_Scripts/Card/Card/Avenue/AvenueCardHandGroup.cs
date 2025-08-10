@@ -53,10 +53,12 @@ public class AvenueCardHandGroup : NetworkBehaviour
         
         foreach (AvenueCardHand avenueCardHand in mHandList)
         {
+            Debug.Log(avenueCardHand.IsMe);
+            
             // - set
             avenueCardHand.Set_Origin_Rpc(avenueCardHand.IsMe ?
                 context.handMeOriginTr.position : 
-                context.handOrigin.transform.position);
+                context.handOtherOriginTr.position);
             
             // - spread
             avenueCardHand.Spread_Rpc();
