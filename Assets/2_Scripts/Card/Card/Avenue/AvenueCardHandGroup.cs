@@ -11,12 +11,17 @@ public class AvenueCardHandGroup : NetworkBehaviour
 {
     [SerializeField] private NetworkObject mNetworkObject;
 
-    private int _mSpawnPointIndex;
+    private readonly Dictionary<bool, AvenueCardHand> _mHands = new Dictionary<bool, AvenueCardHand>();
     
     public ulong Spawn()
     {
         mNetworkObject.Spawn();
         return mNetworkObject.NetworkObjectId;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        _mHands.Clear();
     }
     
     public void Init_Request(AvenueGameContext context)
@@ -28,22 +33,18 @@ public class AvenueCardHandGroup : NetworkBehaviour
             return;
         }
 
-        Set_Origin_Index_Rpc(0);
-
-        Vector3[] spawnPoints = new Vector3[2]
-        {
-            context.handMeOriginTr.position,
-            context.handOtherOriginTr.position,
-        };
-        
+        // - add hand
+        bool isMe = true;
         foreach (Friend friend in current.Value.Members)
         {
             // - spawn
             AvenueCardHand hand = Instantiate(context.handOrigin);
-            hand.Spawn();
+            ulong handId = hand.Spawn();
             
-            // - point
-            hand.Set_Origin_Rpc(spawnPoints[_mSpawnPointIndex]);
+            // - add
+            Add_Hand_Rpc(handId, isMe);
+
+            isMe = !isMe;
             
             for (int i = 0; i < context.initDrawCount; i++)
             {
@@ -52,25 +53,40 @@ public class AvenueCardHandGroup : NetworkBehaviour
                 context.deck.Draw_Rpc();
             
                 // - hand 
-                ulong id = card.NetworkObjectId;
-                hand.Add_Card_Rpc(id);
+                ulong cardId = card.NetworkObjectId;
+                hand.Add_Card_Rpc(cardId);
+            }
+            
+            
+        }
+        
+        // - set 
+        foreach (KeyValuePair<bool, AvenueCardHand> pair in _mHands)
+        {
+            if (pair.Key == true)
+            {
+                pair.Value.Set_Origin_Rpc(context.handMeOriginTr.position);
+            }
+
+            else
+            {
+                pair.Value.Set_Origin_Rpc(context.handOtherOriginTr.position);
+                
             }
             
             // - spread
-            hand.Spread_Rpc();
-            
-            // - index
-            _mSpawnPointIndex++;
-            
-            Set_Origin_Index_Rpc((_mSpawnPointIndex + 1) % spawnPoints.Length);
+            pair.Value.Spread_Rpc();
         }
     }
 
-    [Rpc(SendTo.NotServer)]
-    private void Set_Origin_Index_Rpc(int value)
+    [Rpc(SendTo.Everyone)]
+    private void Add_Hand_Rpc(ulong handId, bool isMe)
     {
-        _mSpawnPointIndex = value;
+        if (!NetCustomUtil.FindSpawned(handId, out AvenueCardHand hand))
+        {
+            return;
+        }
         
-        Debug.Log(_mSpawnPointIndex);
+        _mHands.Add(isMe, hand);
     }
 }
