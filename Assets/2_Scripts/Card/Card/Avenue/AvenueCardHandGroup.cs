@@ -31,8 +31,9 @@ public class AvenueCardHandGroup : NetworkBehaviour
         {
             // - spawn
             AvenueCardHand hand = Instantiate(context.handOrigin);
-            hand.Spawn();
-            hand.Set_IsMe_Rpc(friend.IsMe);
+            ulong handId = hand.Spawn();
+
+            Set_IsMe_Rpc(handId, (ulong)friend.Id);
             
             for (int i = 0; i < context.initDrawCount; i++)
             {
@@ -48,5 +49,18 @@ public class AvenueCardHandGroup : NetworkBehaviour
             // - spread
             hand.Spread_Rpc();
         }
+    }
+    
+    [Rpc(SendTo.Everyone)]
+    private void Set_IsMe_Rpc(ulong handId, ulong steamId)
+    {
+        if (!NetCustomUtil.FindSpawned(handId, out AvenueCardHand hand))
+        {
+            return;
+        }
+        
+        bool isMe = steamId == SteamClient.SteamId;
+        
+        hand.Set_IsMe(isMe);
     }
 }

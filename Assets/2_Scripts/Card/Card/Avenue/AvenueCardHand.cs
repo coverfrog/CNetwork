@@ -17,8 +17,7 @@ public class AvenueCardHand : NetworkBehaviour
         return mNetworkObject.NetworkObjectId;
     }
 
-    [Rpc(SendTo.Everyone)]
-    public void Set_IsMe_Rpc(bool value)
+    public void Set_IsMe(bool value)
     {
         isMe = value;
     }
