@@ -30,14 +30,6 @@ public class AvenueCardDataSoGroup : ScriptableObject
 
         // -- convert
         List<AvenueCardNetworkData> result = source.Select(AvenueCardDataConverter.ToNetworkData).ToList();
-        
-        for (int i = 0; i < count; i++)
-        {
-            AvenueCardNetworkData temp = result[i];
-            temp.deckCursor = i;
-
-            result[i] = temp;
-        }
 
         // -- result
         return result;

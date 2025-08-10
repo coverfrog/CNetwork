@@ -28,9 +28,6 @@ public static class AvenueCardDataConverter
             codeName = networkData.codeName.Value,
             displayName = networkData.displayName.Value,
             description = networkData.description.Value,
-            
-            // id
-            deckCursor = networkData.deckCursor,
         };
         
         result.Load(networkData, onLoaded);

@@ -23,7 +23,6 @@ public struct AvenueCardNetworkData : INetworkSerializable, IEquatable<AvenueCar
     #region Id
 
     public ulong netId;
-    public int deckCursor;
 
     #endregion
 
@@ -40,7 +39,6 @@ public struct AvenueCardNetworkData : INetworkSerializable, IEquatable<AvenueCar
         
         // id
         serializer.SerializeValue(ref netId);
-        serializer.SerializeValue(ref deckCursor);
     }
 
     public bool Equals(AvenueCardNetworkData other)
