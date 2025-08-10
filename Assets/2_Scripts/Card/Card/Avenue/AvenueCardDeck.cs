@@ -73,7 +73,7 @@ public class AvenueCardDeck : NetworkBehaviour
         return mCardList[_mCursor];
     }
     
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Everyone)]
     private void End_Rpc()
     {
         // -- pos
