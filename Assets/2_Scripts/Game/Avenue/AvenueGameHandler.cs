@@ -28,10 +28,11 @@ public class AvenueGameHandler : NetworkBehaviour
         
         mNetworkObject.Spawn();
 
-        StateChange(AvenueGameState.Init);
+        StateChange_Rpc(AvenueGameState.Init);
     }
 
-    public void StateChange(AvenueGameState newState)
+    [Rpc(SendTo.Everyone)]
+    public void StateChange_Rpc(AvenueGameState newState)
     {
         mState = newState;
         

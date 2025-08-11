@@ -23,7 +23,7 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
         
         context.isHandCardSelect = MultiManager.Instance.IsServer;
         
-        handler.StateChange(AvenueGameState.HandCardSelect);
+        handler.StateChange_Rpc(AvenueGameState.HandCardSelect);
     }
 
     public void OnUpdate(AvenueGameHandler handler, AvenueGameContext context)

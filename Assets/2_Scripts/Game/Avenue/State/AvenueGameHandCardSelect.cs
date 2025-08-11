@@ -92,6 +92,6 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
         context.selected.Set_Hand_Selected_Rpc(_mHandSelectedCard.NetworkObjectId);
         
         // - change
-        handler.StateChange(AvenueGameState.CardSelect);
+        handler.StateChange_Rpc(AvenueGameState.CardSelect);
     }
 }
