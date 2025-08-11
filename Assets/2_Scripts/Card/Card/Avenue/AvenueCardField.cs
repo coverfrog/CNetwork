@@ -37,5 +37,6 @@ public class AvenueCardField : NetworkBehaviour
         }
         
         card.Set_Position_Tween_Rpc(mOriginPoint);
+        card.Set_Scale_Tween_Rpc(Vector3.one);
     }
 }

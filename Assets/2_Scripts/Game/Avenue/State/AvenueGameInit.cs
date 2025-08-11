@@ -42,6 +42,7 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
             return;
         }
 
+        context.rpc        = FindAnyObjectByType<AvenueGameRpc>();
         context.deck       = FindAnyObjectByType<AvenueCardDeck>();
         context.handGroup  = FindAnyObjectByType<AvenueCardHandGroup>();
         context.selected   = FindAnyObjectByType<AvenueCardSelected>();

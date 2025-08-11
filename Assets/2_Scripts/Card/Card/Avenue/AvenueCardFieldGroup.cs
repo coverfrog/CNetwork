@@ -37,6 +37,8 @@ public class AvenueCardFieldGroup : NetworkBehaviour
             Add_Field_Rpc(fieldId);
             Set_IsMe_Rpc(fieldId, friend.Id);
         }
+
+        Set_Origin_Rpc(context.fieldMeOriginTr.position,context.fieldOtherOriginTr.position);
     }
     
     [Rpc(SendTo.Everyone)]
