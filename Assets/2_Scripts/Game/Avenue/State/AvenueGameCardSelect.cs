@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
 {
-    private AvenueCard _mFocusCard;
+    [SerializeField] private AvenueCard _mFocusCard;
     
     public void OnEnter(AvenueGameHandler handler, AvenueGameContext context)
     {
@@ -65,7 +65,6 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
         
         // - get
         ulong id = _mFocusCard.NetworkObjectId;
-        
         context.fieldGroup.MyField.Add_Card_Rpc(id);
     }
 }
