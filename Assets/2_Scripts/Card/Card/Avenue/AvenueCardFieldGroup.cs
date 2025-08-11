@@ -42,9 +42,10 @@ public class AvenueCardFieldGroup : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void On_Select_Rpc(ulong cardId, bool isMe)
+    public void On_Select_Rpc(ulong selectCardId, ulong remainCardId)
     {
-        (isMe ? mMyField : mOtherField).On_Select(cardId);
+        mMyField.On_Select(selectCardId);
+        mOtherField.On_Select(remainCardId);
     }
     
     [Rpc(SendTo.Everyone)]
