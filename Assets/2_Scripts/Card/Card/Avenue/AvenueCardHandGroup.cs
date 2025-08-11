@@ -85,12 +85,13 @@ public class AvenueCardHandGroup : NetworkBehaviour
         hand.Set_IsMe(isMe);
     }
 
+    [Rpc(SendTo.Everyone)]
     private void Set_Rotation_Rpc()
     {
         foreach (AvenueCardHand avenueCardHand in mHandList)
         {
             // - set
-            avenueCardHand.Set_Rotation(avenueCardHand.IsMe ? Vector3.zero : new Vector3(0, 0, 180));
+            avenueCardHand.Set_Rotation(avenueCardHand.IsMe ? Vector3.zero : new Vector3(0, 180, 180));
         }
     }
 
