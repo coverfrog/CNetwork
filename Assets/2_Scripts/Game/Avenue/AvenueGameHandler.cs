@@ -17,8 +17,12 @@ public class AvenueGameHandler : MonoBehaviour
 
     private IAvenueGameState _mState;
     
+    public bool IsServer { get; private set; }
+    
     public void OnSceneLoaded(bool isServer, List<ulong> idList)
     {
+        IsServer = isServer;
+        
         if (!isServer)
         {
             return;
