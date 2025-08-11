@@ -31,6 +31,8 @@ public class AvenueCardField : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void On_Select_Rpc(ulong cardId)
     {
+        Debug.Log(mOriginPoint);
+        
         if (!NetCustomUtil.FindSpawned(cardId, out AvenueCard card))
         {
             return;

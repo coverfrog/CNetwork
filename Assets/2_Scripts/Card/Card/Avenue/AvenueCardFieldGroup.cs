@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Steamworks;
 using Steamworks.Data;
 using Unity.Netcode;
@@ -9,8 +10,8 @@ public class AvenueCardFieldGroup : NetworkBehaviour
     [SerializeField] private NetworkObject mNetworkObject;
     [Space]
     [SerializeField] private List<AvenueCardField> mFieldList = new List<AvenueCardField>();
-    
-    public AvenueCardField MyField { get; private set; }
+
+    public AvenueCardField MyField => mFieldList.FirstOrDefault(f => f.IsMe);
     
     public void Spawn()
     {
@@ -61,11 +62,6 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         
         bool isMe = steamId == SteamClient.SteamId;
         field.Set_IsMe(isMe);
-
-        if (isMe)
-        {
-            MyField = field;
-        }
     }
     
     [Rpc(SendTo.Everyone)]
