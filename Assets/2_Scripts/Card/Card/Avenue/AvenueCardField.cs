@@ -28,7 +28,8 @@ public class AvenueCardField : NetworkBehaviour
         mOriginPoint = position;
     }
 
-    public void On_Select(ulong selectId, ulong remainId)
+    [Rpc(SendTo.Everyone)]
+    public void On_Select_Rpc(ulong selectId, ulong remainId)
     {
         ulong id = IsMe ? selectId : remainId;
         
