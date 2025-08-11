@@ -43,7 +43,6 @@ public class AvenueCardHandGroup : NetworkBehaviour
             {
                 // - deck
                 AvenueCard card = context.deck.Draw();
-                card.Set_Rotation(new Vector3(0, 0, 180));
                 context.deck.Draw_Rpc();
             
                 // - hand 

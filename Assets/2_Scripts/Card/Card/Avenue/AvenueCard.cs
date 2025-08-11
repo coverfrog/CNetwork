@@ -76,6 +76,7 @@ public class AvenueCard : NetworkBehaviour
         
         if (_mRotationQueue.TryDequeue(out Vector3 eulerAngles))
         {
+            Debug.Log(eulerAngles);
             transform.eulerAngles = eulerAngles;
         }
     }

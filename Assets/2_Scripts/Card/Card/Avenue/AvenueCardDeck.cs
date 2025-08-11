@@ -80,10 +80,10 @@ public class AvenueCardDeck : NetworkBehaviour
         for (int i = 0; i < mCardList.Count; i++)
         {
             AvenueCard card = mCardList[i];
-            // - pos set
             Vector3 pos = _mSpawnOriginPoint + Vector3.up * i * mCardHeight;
 
             card.SetPosition(pos);
+            card.Set_Rotation(new Vector3(0, 0, 180));
         }
     }
 
