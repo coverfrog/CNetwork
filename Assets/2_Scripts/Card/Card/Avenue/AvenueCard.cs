@@ -13,15 +13,20 @@ public class AvenueCard : NetworkBehaviour
     [SerializeField] private MeshRenderer mMeshRender;
     [Space] 
     [SerializeField] private bool mIsMe;
+    [SerializeField] private bool mIsSelected;
     [SerializeField] private AvenueCardData mData;
 
     public AvenueCardData Data => mData;
     
+    public bool IsSelected => mIsSelected;
+    
     private readonly Queue<Vector3> _mPositionQueue = new Queue<Vector3>();
     private readonly Queue<Vector3> _mRotationQueue = new Queue<Vector3>();
+    private readonly Queue<Vector3> _mScaleQueue = new Queue<Vector3>();
     
     private Tween _mScaleTween;
     private Tween _mMoveTween;
+    private Tween _mMScaleTween;
     
     public AvenueCard SetData(AvenueCardData data)
     {
@@ -39,6 +44,18 @@ public class AvenueCard : NetworkBehaviour
     {
         _mPositionQueue.Enqueue(position);
         return this;
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void Set_Position_Tween_Rpc(Vector3 position)
+    {
+        _mPositionQueue.Enqueue(position);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void Set_Scale_Tween_Rpc(Vector3 scale)
+    {
+        _mScaleQueue.Enqueue(scale);
     }
     
     public AvenueCard Set_Rotation(Vector3 eulerAngles)
@@ -94,15 +111,9 @@ public class AvenueCard : NetworkBehaviour
     //
 
     [Rpc(SendTo.Everyone)]
-    public void On_Select_Rpc(Vector3 position)
+    public void Set_Select_Rpc(bool value)
     {
-        _mMoveTween?.Kill();
-        _mMoveTween = transform.
-            DOMove(position, 0.5f);
-        
-        _mScaleTween?.Kill();
-        _mScaleTween = transform.
-            DOScale(Vector3.one * 1.5f, 0.2f);
+        mIsSelected = value;
     }
     
     //
@@ -113,12 +124,19 @@ public class AvenueCard : NetworkBehaviour
         {
             _mMoveTween?.Kill();
             _mMoveTween = transform.
-                DOMove(position, 0.1f);
+                DOMove(position, 0.2f);
         }
         
         if (_mRotationQueue.TryDequeue(out Vector3 eulerAngles))
         {
             transform.eulerAngles = eulerAngles;
+        }
+        
+        if (_mScaleQueue.TryDequeue(out Vector3 scale))
+        {
+            _mScaleTween?.Kill();
+            _mScaleTween = transform.
+                DOScale(scale, 0.2f);
         }
     }
 }

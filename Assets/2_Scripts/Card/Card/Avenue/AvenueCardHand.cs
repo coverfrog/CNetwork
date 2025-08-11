@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -59,8 +60,9 @@ public class AvenueCardHand : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     public void Spread_Rpc()
     {
-        int count = mCardList.Count;
+        List<AvenueCard> cardList = mCardList.Where(c => !c.IsSelected).ToList();
         
+        int count = cardList.Count;
         float width = mCardSpace * count * 0.5f;
         
         for (int i = 0; i < count; i++)
@@ -69,7 +71,7 @@ public class AvenueCardHand : NetworkBehaviour
 
             float l = Mathf.Lerp(-width, +width, p);
 
-            mCardList[i].Set_Position_Tween(mOriginPoint + new Vector3(l, 0, 0));
+            cardList[i].Set_Position_Tween(mOriginPoint + new Vector3(l, 0, 0));
         }
     }
 }

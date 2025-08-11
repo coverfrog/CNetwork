@@ -68,13 +68,10 @@ public class AvenueCardDeck : NetworkBehaviour
         }
     }
 
-    public AvenueCard Draw()
-    {
-        return mCardList[_mCursor];
-    }
+ 
     
     [Rpc(SendTo.Everyone)]
-    private void End_Rpc()
+    private void Init_End_Rpc()
     {
         // -- pos
         for (int i = 0; i < mCardList.Count; i++)
@@ -158,8 +155,13 @@ public class AvenueCardDeck : NetworkBehaviour
             }
 
             // - end
-            End_Rpc();
+            Init_End_Rpc();
         });
+    }
+    
+    public AvenueCard Draw_Client()
+    {
+        return mCardList[_mCursor];
     }
     
     

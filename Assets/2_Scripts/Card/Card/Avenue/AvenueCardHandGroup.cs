@@ -43,7 +43,7 @@ public class AvenueCardHandGroup : NetworkBehaviour
             for (int i = 0; i < context.initDrawCount; i++)
             {
                 // - deck
-                AvenueCard card = context.deck.Draw();
+                AvenueCard card = context.deck.Draw_Client();
                 context.deck.Draw_Rpc();
             
                 // - hand 

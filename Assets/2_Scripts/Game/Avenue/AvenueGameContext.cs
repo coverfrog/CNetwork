@@ -8,6 +8,9 @@ public class AvenueGameContext
     [Header("-- Option")] 
     public int initDrawCount = 4;
     
+    [Header("-- References")]
+    public Camera mainCamera;
+    
     [Header("-- Origin")]
     public AvenueCardDeck deckOrigin;
     public AvenueCardHand handOrigin;

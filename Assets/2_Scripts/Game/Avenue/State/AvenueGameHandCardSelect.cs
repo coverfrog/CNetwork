@@ -13,12 +13,12 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
 
     public void OnUpdate(AvenueGameHandler handler, AvenueGameContext context)
     {
-        if (_mSelectedCard)
+        if (!context.isMyTurn || _mSelectedCard)
         {
             return;
         }
         
-        Focus();
+        Focus(context);
         Select(context);
     }
 
@@ -27,11 +27,11 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
         
     }
 
-    private void Focus()
+    private void Focus(AvenueGameContext context)
     {
         Vector3 mousePosition = Input.mousePosition;
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-
+        Ray ray = context.mainCamera.ScreenPointToRay(mousePosition);
+        
         if (!Physics.Raycast(ray, out RaycastHit hit))
         {
             if (!_mFocusCard)
@@ -41,7 +41,8 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
             
             _mFocusCard.On_UnFocus_Rpc();
             _mFocusCard = null;
-
+            
+            
             return;
         }
 
@@ -67,9 +68,20 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
             return;
         }
         
+        // - hand
         _mSelectedCard = _mFocusCard;
-        _mFocusCard.On_Select_Rpc(context.handSetOriginTr.position);
+        
+        _mSelectedCard.Set_Select_Rpc(true);
+        _mSelectedCard.Set_Position_Tween_Rpc(context.handSetOriginTr.position);
+        _mSelectedCard.Set_Scale_Tween_Rpc(Vector3.one * 2.0f);
         
         context.handGroup.MyHand.Spread_Rpc();
+        
+        // - deck
+        AvenueCard deckCard = context.deck.Draw_Client();
+        context.deck.Draw_Rpc();
+        
+        deckCard.Set_Position_Tween_Rpc(context.deckSetOriginTr.position);
+        deckCard.Set_Scale_Tween_Rpc(Vector3.one * 2.0f);
     }
 }
