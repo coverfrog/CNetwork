@@ -28,6 +28,8 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
 
     private void Focus(AvenueGameContext context)
     {
+        Debug.Log("Focus");
+        
         Vector3 mousePosition = Input.mousePosition;
         Ray ray = context.mainCamera.ScreenPointToRay(mousePosition);
 
