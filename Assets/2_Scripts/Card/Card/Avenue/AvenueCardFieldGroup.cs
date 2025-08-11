@@ -41,7 +41,7 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         Set_Origin_Rpc(context.fieldMeOriginTr.position,context.fieldOtherOriginTr.position);
     }
 
-    [Rpc(SendTo.Me)]
+    [Rpc(SendTo.Everyone)]
     public void On_Select_Me_Rpc(ulong selectCardId, ulong remainCardId)
     {
         mMyField.On_Select(selectCardId);
