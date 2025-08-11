@@ -7,7 +7,6 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
     
     public void OnEnter(AvenueGameHandler handler, AvenueGameContext context)
     {
-        
     }
 
     public void OnUpdate(AvenueGameHandler handler, AvenueGameContext context)
@@ -25,7 +24,7 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
     {
         
     }
-
+    
     private void Focus(AvenueGameContext context)
     {
         Vector3 mousePosition = Input.mousePosition;
