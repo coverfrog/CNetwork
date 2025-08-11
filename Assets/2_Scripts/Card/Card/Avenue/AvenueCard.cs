@@ -58,11 +58,18 @@ public class AvenueCard : NetworkBehaviour
         _mScaleQueue.Enqueue(scale);
     }
     
-    public AvenueCard Set_Rotation(Vector3 eulerAngles)
+    public AvenueCard Set_Rotation_Tween(Vector3 eulerAngles)
     {
         _mRotationQueue.Enqueue(eulerAngles);
         return this;
     }
+    
+    [Rpc(SendTo.Everyone)]
+    public void Set_Rotation_Tween_Rpc(Vector3 eulerAngles)
+    {
+        _mRotationQueue.Enqueue(eulerAngles);
+    }
+    
 
     public AvenueCard SetDeckCursor(int value)
     {

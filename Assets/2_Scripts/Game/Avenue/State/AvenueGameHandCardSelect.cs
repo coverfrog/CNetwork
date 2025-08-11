@@ -76,6 +76,7 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
         _mHandSelectedCard.Set_Select_Rpc(true);
         _mHandSelectedCard.Set_Position_Tween_Rpc(context.handSetOriginTr.position);
         _mHandSelectedCard.Set_Scale_Tween_Rpc(Vector3.one * 2.0f);
+        _mHandSelectedCard.Set_Rotation_Tween_Rpc(Vector3.zero);
 
         context.handGroup.MyHand.Spread_Rpc();
 
