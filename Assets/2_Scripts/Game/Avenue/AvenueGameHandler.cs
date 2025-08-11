@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(AvenueGameInit))]
 [RequireComponent(typeof(AvenueGameHandCardSelect))]
 [RequireComponent(typeof(AvenueGameCardSelect))]
-public class AvenueGameHandler : MonoBehaviour
+public class AvenueGameHandler : NetworkBehaviour
 {
+    [SerializeField] private NetworkObject mNetworkObject;
+    [Space]
+    [SerializeField] private AvenueGameState mState;
     [SerializeField] private AvenueGameContext mContext;
     [Space]
     [SerializeField] private AvenueGameInit mInit;
@@ -21,12 +25,16 @@ public class AvenueGameHandler : MonoBehaviour
         {
             return;
         }
+        
+        mNetworkObject.Spawn();
 
         StateChange(AvenueGameState.Init);
     }
 
     public void StateChange(AvenueGameState newState)
     {
+        mState = newState;
+        
         _mState?.OnExit(this, mContext);
         _mState = newState switch
         {

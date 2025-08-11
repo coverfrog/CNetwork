@@ -471,6 +471,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 717280732}
+  - component: {fileID: 717280737}
   - component: {fileID: 717280734}
   - component: {fileID: 717280733}
   - component: {fileID: 717280735}
@@ -521,6 +522,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4f8e4ad1af4c898fac0b1c5f1b0b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  mNetworkObject: {fileID: 717280737}
+  mState: 0
   mContext:
     initDrawCount: 4
     mainCamera: {fileID: 984391212}
@@ -569,6 +573,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744eb0a5748345929b0e044154d34458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &717280737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717280731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4288597894
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &732112343
 GameObject:
   m_ObjectHideFlags: 0
