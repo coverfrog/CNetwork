@@ -10,6 +10,8 @@ public class AvenueCardFieldGroup : NetworkBehaviour
     [SerializeField] private NetworkObject mNetworkObject;
     [Space]
     [SerializeField] private List<AvenueCardField> mFieldList = new List<AvenueCardField>();
+    public AvenueCardField MyField { get; private set; }
+    public AvenueCardField OtherField { get; private set; }
     
     public void Spawn()
     {
@@ -60,6 +62,11 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         
         bool isMe = steamId == SteamClient.SteamId;
         field.Set_IsMe(isMe);
+
+        if (isMe)
+            MyField = field;
+        else
+            OtherField = field;
     }
     
     [Rpc(SendTo.Everyone)]
@@ -70,12 +77,5 @@ public class AvenueCardFieldGroup : NetworkBehaviour
             // - set
             field.Set_Origin(field.IsMe ? me : other);
         }
-    }
-
-    [Rpc(SendTo.Everyone)]
-    public void On_Select_Rpc(ulong selectId, ulong remainId, bool isHandCardSelect)
-    {
-        // 여기서 내 차례면 선택한 거 
-        Debug.Log(isHandCardSelect);
     }
 }

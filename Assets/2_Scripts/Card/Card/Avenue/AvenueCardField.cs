@@ -29,10 +29,8 @@ public class AvenueCardField : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void On_Select_Rpc(ulong selectId, ulong remainId)
+    public void On_Select_Rpc(ulong id)
     {
-        ulong id = IsMe ? selectId : remainId;
-        
         if (!NetCustomUtil.FindSpawned(id, out AvenueCard card))
         {
             return;

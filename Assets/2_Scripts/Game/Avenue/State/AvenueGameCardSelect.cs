@@ -66,6 +66,11 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
         ulong selectId = _mFocusCard.NetworkObjectId;
         ulong remainId = context.selected.Get_Remain_Card(selectId);
         
-        context.fieldGroup.On_Select_Rpc(selectId, remainId, context.isHandCardSelect);
+        // - 결국 여기에서 타겟 id를 제대로 선택해줘야함
+        ulong myTargetId = context.isHandCardSelect ? remainId : selectId;
+        ulong otherTargetId = !context.isHandCardSelect ? remainId : selectId;
+        
+        context.fieldGroup.MyField.On_Select_Rpc(myTargetId);
+        context.fieldGroup.OtherField.On_Select_Rpc(otherTargetId);
     }
 }
