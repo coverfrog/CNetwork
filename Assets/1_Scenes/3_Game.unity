@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 717280734}
   - component: {fileID: 717280733}
   - component: {fileID: 717280735}
+  - component: {fileID: 717280736}
   m_Layer: 0
   m_Name: Avenue Game Handler
   m_TagString: Untagged
@@ -400,6 +401,7 @@ MonoBehaviour:
     deckOrigin: {fileID: 7075238501133388882, guid: 3579bddeb01a4d14581619b40ee30ca2, type: 3}
     handOrigin: {fileID: 6976411956442013382, guid: 095617da3faba3b4ab4442f2a7769fc0, type: 3}
     handGroupOrigin: {fileID: 1961303755721042251, guid: 8eb5bd01aa0b59a43a8d4b356d74b2f9, type: 3}
+    cardSelectedOrigin: {fileID: 586755295252433134, guid: 02e5eb3cba0dc5346ab6df23509f4f52, type: 3}
     deckOriginTr: {fileID: 1701511956}
     handMeOriginTr: {fileID: 645975974}
     handOtherOriginTr: {fileID: 175233913}
@@ -407,9 +409,11 @@ MonoBehaviour:
     deckSetOriginTr: {fileID: 342594466}
     deck: {fileID: 0}
     handGroup: {fileID: 0}
+    selected: {fileID: 0}
     isMyTurn: 0
   mInit: {fileID: 717280733}
   mHandCardSelect: {fileID: 717280735}
+  mCardSelect: {fileID: 717280736}
 --- !u!114 &717280735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,6 +424,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c7a63ebdde74581b92361dbfdb0e861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &717280736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717280731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744eb0a5748345929b0e044154d34458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &732112343

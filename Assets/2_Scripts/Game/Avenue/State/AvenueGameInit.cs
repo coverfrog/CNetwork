@@ -14,7 +14,10 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
         context.handGroup.Spawn();
         context.handGroup.Init_Request(context);
 
-        context.isMyTurn = MultiManager.Instance.IsServer;
+        context.selected = Instantiate(context.cardSelectedOrigin);
+        context.selected.Spawn();
+        
+        context.isHandCardSelect = MultiManager.Instance.IsServer;
         
         handler.StateChange(AvenueGameState.HandCardSelect);
     }

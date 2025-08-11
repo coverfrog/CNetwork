@@ -1,7 +1,8 @@
 ﻿public enum AvenueGameState
 {
     Init,
-    HandCardSelect
+    HandCardSelect,
+    CardSelect,
 }
 
 public interface IAvenueGameState

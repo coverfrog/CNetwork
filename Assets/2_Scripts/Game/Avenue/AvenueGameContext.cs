@@ -15,6 +15,7 @@ public class AvenueGameContext
     public AvenueCardDeck deckOrigin;
     public AvenueCardHand handOrigin;
     public AvenueCardHandGroup handGroupOrigin;
+    public AvenueCardSelected cardSelectedOrigin;
 
     [Header("-- Origin Tr")]
     public Transform deckOriginTr;
@@ -26,5 +27,7 @@ public class AvenueGameContext
     [Header("-- Runtime")]
     public AvenueCardDeck deck;
     public AvenueCardHandGroup handGroup;
-    public bool isMyTurn;
+    public AvenueCardSelected selected;
+    [Space]
+    public bool isHandCardSelect;
 }

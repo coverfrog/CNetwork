@@ -4,12 +4,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(AvenueGameInit))]
 [RequireComponent(typeof(AvenueGameHandCardSelect))]
+[RequireComponent(typeof(AvenueGameCardSelect))]
 public class AvenueGameHandler : MonoBehaviour
 {
     [SerializeField] private AvenueGameContext mContext;
     [Space]
     [SerializeField] private AvenueGameInit mInit;
     [SerializeField] private AvenueGameHandCardSelect mHandCardSelect;
+    [SerializeField] private AvenueGameCardSelect mCardSelect;
 
     private IAvenueGameState _mState;
     
@@ -30,6 +32,7 @@ public class AvenueGameHandler : MonoBehaviour
         {
             AvenueGameState.Init => mInit,
             AvenueGameState.HandCardSelect => mHandCardSelect,
+            AvenueGameState.CardSelect => mCardSelect,
             _ => null
         };
         _mState?.OnEnter(this, mContext);
