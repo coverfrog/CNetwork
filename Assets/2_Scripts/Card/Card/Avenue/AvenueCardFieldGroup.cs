@@ -10,8 +10,8 @@ public class AvenueCardFieldGroup : NetworkBehaviour
     [SerializeField] private NetworkObject mNetworkObject;
     [Space]
     [SerializeField] private List<AvenueCardField> mFieldList = new List<AvenueCardField>();
-    public AvenueCardField mMyField;
-    public AvenueCardField mOtherField;
+    public AvenueCardField MyField { get; private set; }
+    public AvenueCardField OtherField { get; private set; }
     
     public void Spawn()
     {
@@ -42,13 +42,6 @@ public class AvenueCardFieldGroup : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void On_Select_Me_Rpc(ulong selectCardId, ulong remainCardId)
-    {
-        mMyField.On_Select(selectCardId);
-        mOtherField.On_Select(remainCardId);
-    }
-    
-    [Rpc(SendTo.Everyone)]
     private void Add_Field_Rpc(ulong fieldId)
     {
         if (!NetCustomUtil.FindSpawned(fieldId, out AvenueCardField field))
@@ -71,9 +64,9 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         field.Set_IsMe(isMe);
 
         if (isMe)
-            mMyField = field;
+            MyField = field;
         else
-            mOtherField = field;
+            OtherField = field;
     }
     
     [Rpc(SendTo.Everyone)]

@@ -28,9 +28,11 @@ public class AvenueCardField : NetworkBehaviour
         mOriginPoint = position;
     }
 
-    public void On_Select(ulong cardId)
+    public void On_Select(ulong selectId, ulong remainId)
     {
-        if (!NetCustomUtil.FindSpawned(cardId, out AvenueCard card))
+        ulong id = IsMe ? selectId : remainId;
+        
+        if (!NetCustomUtil.FindSpawned(id, out AvenueCard card))
         {
             return;
         }
