@@ -35,6 +35,8 @@ public class AvenueCardField : NetworkBehaviour
             return;
         }
         
+        mCardList.Add(card);
+        
         card.Set_Position_Tween(mOriginPoint);
         card.Set_Scale_Tween_Rpc(Vector3.one);
         card.Set_Rotation_Tween_Rpc(Vector3.zero);
