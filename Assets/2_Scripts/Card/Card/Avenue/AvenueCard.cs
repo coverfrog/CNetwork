@@ -35,7 +35,7 @@ public class AvenueCard : NetworkBehaviour
         return this;
     }
     
-    public AvenueCard SetPosition(Vector3 position)
+    public AvenueCard Set_Position_Tween(Vector3 position)
     {
         _mPositionQueue.Enqueue(position);
         return this;
@@ -111,7 +111,9 @@ public class AvenueCard : NetworkBehaviour
     {
         if (_mPositionQueue.TryDequeue(out Vector3 position))
         {
-            transform.position = position;
+            _mMoveTween?.Kill();
+            _mMoveTween = transform.
+                DOMove(position, 0.1f);
         }
         
         if (_mRotationQueue.TryDequeue(out Vector3 eulerAngles))

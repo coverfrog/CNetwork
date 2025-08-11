@@ -82,7 +82,7 @@ public class AvenueCardDeck : NetworkBehaviour
             AvenueCard card = mCardList[i];
             Vector3 pos = _mSpawnOriginPoint + Vector3.up * i * mCardHeight;
 
-            card.SetPosition(pos);
+            card.Set_Position_Tween(pos);
             card.Set_Rotation(new Vector3(0, 0, 180));
         }
     }

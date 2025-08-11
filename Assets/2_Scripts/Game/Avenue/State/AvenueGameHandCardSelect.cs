@@ -62,10 +62,14 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (!Input.GetMouseButtonDown(0))
         {
-            _mSelectedCard = _mFocusCard;
-            _mFocusCard.On_Select_Rpc(context.handSetOriginTr.position);
+            return;
         }
+        
+        _mSelectedCard = _mFocusCard;
+        _mFocusCard.On_Select_Rpc(context.handSetOriginTr.position);
+        
+        context.handGroup.MyHand.Spread_Rpc();
     }
 }

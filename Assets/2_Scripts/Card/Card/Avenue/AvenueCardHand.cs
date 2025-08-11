@@ -69,7 +69,7 @@ public class AvenueCardHand : NetworkBehaviour
 
             float l = Mathf.Lerp(-width, +width, p);
 
-            mCardList[i].SetPosition(mOriginPoint + new Vector3(l, 0, 0));
+            mCardList[i].Set_Position_Tween(mOriginPoint + new Vector3(l, 0, 0));
         }
     }
 }
