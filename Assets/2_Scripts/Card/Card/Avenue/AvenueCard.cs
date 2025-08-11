@@ -15,15 +15,11 @@ public class AvenueCard : NetworkBehaviour
     [SerializeField] private bool mIsMe;
     [SerializeField] private bool mIsSelected;
     [SerializeField] private AvenueCardData mData;
-
+    
     public AvenueCardData Data => mData;
     
     public bool IsSelected => mIsSelected;
     
-    private readonly Queue<Vector3> _mPositionQueue = new Queue<Vector3>();
-    private readonly Queue<Vector3> _mRotationQueue = new Queue<Vector3>();
-    private readonly Queue<Vector3> _mScaleQueue = new Queue<Vector3>();
-
     private Tween _mPositionTween;
     private Tween _mRotationTween;
     private Tween _mScaleTween;
@@ -42,16 +38,18 @@ public class AvenueCard : NetworkBehaviour
 
     #region > Position
 
-    public AvenueCard Set_Position_Tween(Vector3 position)
+    public AvenueCard Set_Position_Tween(Vector3 position, float duration = 0.2f)
     {
-        _mPositionQueue.Enqueue(position);
+        _mPositionTween?.Kill();
+        _mPositionTween = transform.DOMove(position, duration);
+        
         return this;
     }
 
     [Rpc(SendTo.Everyone)]
-    public void Set_Position_Tween_Rpc(Vector3 position)
+    public void Set_Position_Tween_Rpc(Vector3 position, float duration = 0.2f)
     {
-        _mPositionQueue.Enqueue(position);
+        Set_Position_Tween(position, duration);
     }
 
     #endregion
@@ -59,9 +57,10 @@ public class AvenueCard : NetworkBehaviour
     #region > Scale
 
     [Rpc(SendTo.Everyone)]
-    public void Set_Scale_Tween_Rpc(Vector3 scale)
+    public void Set_Scale_Tween_Rpc(Vector3 scale, float duration = 0.2f)
     {
-        _mScaleQueue.Enqueue(scale);
+        _mScaleTween?.Kill();
+        _mScaleTween = transform.DOScale(scale, duration);
     }
 
     #endregion
@@ -70,7 +69,6 @@ public class AvenueCard : NetworkBehaviour
     
     public AvenueCard Set_Rotation(Vector3 eulerAngles)
     {
-        _mRotationQueue.Clear();
         _mRotationTween?.Kill();
         
         transform.eulerAngles = eulerAngles;
@@ -79,9 +77,10 @@ public class AvenueCard : NetworkBehaviour
     }
     
     [Rpc(SendTo.Everyone)]
-    public void Set_Rotation_Tween_Rpc(Vector3 eulerAngles)
+    public void Set_Rotation_Tween_Rpc(Vector3 eulerAngles, float duration = 0.2f)
     {
-        _mRotationQueue.Enqueue(eulerAngles);
+        _mRotationTween?.Kill();
+        _mRotationTween = transform.DORotate(eulerAngles, duration);
     }
 
     #endregion
@@ -137,31 +136,5 @@ public class AvenueCard : NetworkBehaviour
     public void Set_Select_Rpc(bool value)
     {
         mIsSelected = value;
-    }
-    
-    //
-
-    private void Update()
-    {
-        if (_mPositionQueue.TryDequeue(out Vector3 position))
-        {
-            _mPositionTween?.Kill();
-            _mPositionTween = transform.
-                DOMove(position, 0.2f);
-        }
-        
-        if (_mRotationQueue.TryDequeue(out Vector3 eulerAngles))
-        {
-            _mRotationTween?.Kill();
-            _mRotationTween = transform.
-                DORotate(eulerAngles, 0.2f);
-        }
-        
-        if (_mScaleQueue.TryDequeue(out Vector3 scale))
-        {
-            _mScaleTween?.Kill();
-            _mScaleTween = transform.
-                DOScale(scale, 0.2f);
-        }
     }
 }
