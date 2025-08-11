@@ -39,13 +39,11 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         Set_Origin_Rpc(context.fieldMeOriginTr.position,context.fieldOtherOriginTr.position);
     }
 
-    [Rpc(SendTo.Everyone)]
     public void On_Select_Me_Rpc(ulong cardId)
     {
         mFieldList.FirstOrDefault(f => f.IsMe)?.On_Select(cardId);
     }
     
-    [Rpc(SendTo.Everyone)]
     public void On_Select_NotMe_Rpc(ulong cardId)
     {
         mFieldList.FirstOrDefault(f => !f.IsMe)?.On_Select(cardId);
