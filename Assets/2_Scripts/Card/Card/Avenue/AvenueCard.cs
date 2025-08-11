@@ -23,10 +23,10 @@ public class AvenueCard : NetworkBehaviour
     private readonly Queue<Vector3> _mPositionQueue = new Queue<Vector3>();
     private readonly Queue<Vector3> _mRotationQueue = new Queue<Vector3>();
     private readonly Queue<Vector3> _mScaleQueue = new Queue<Vector3>();
-    
+
+    private Tween _mPositionTween;
+    private Tween _mRotationTween;
     private Tween _mScaleTween;
-    private Tween _mMoveTween;
-    private Tween _mMScaleTween;
     
     public AvenueCard SetData(AvenueCardData data)
     {
@@ -39,7 +39,9 @@ public class AvenueCard : NetworkBehaviour
         gameObject.name = value;
         return this;
     }
-    
+
+    #region > Position
+
     public AvenueCard Set_Position_Tween(Vector3 position)
     {
         _mPositionQueue.Enqueue(position);
@@ -52,15 +54,27 @@ public class AvenueCard : NetworkBehaviour
         _mPositionQueue.Enqueue(position);
     }
 
+    #endregion
+
+    #region > Scale
+
     [Rpc(SendTo.Everyone)]
     public void Set_Scale_Tween_Rpc(Vector3 scale)
     {
         _mScaleQueue.Enqueue(scale);
     }
+
+    #endregion
+
+    #region > Rotation
     
-    public AvenueCard Set_Rotation_Tween(Vector3 eulerAngles)
+    public AvenueCard Set_Rotation(Vector3 eulerAngles)
     {
-        _mRotationQueue.Enqueue(eulerAngles);
+        _mRotationQueue.Clear();
+        _mRotationTween?.Kill();
+        
+        transform.eulerAngles = eulerAngles;
+        
         return this;
     }
     
@@ -69,8 +83,10 @@ public class AvenueCard : NetworkBehaviour
     {
         _mRotationQueue.Enqueue(eulerAngles);
     }
-    
 
+    #endregion
+    
+    
     public AvenueCard SetDeckCursor(int value)
     {
         mData.deckCursor = value;
@@ -129,14 +145,16 @@ public class AvenueCard : NetworkBehaviour
     {
         if (_mPositionQueue.TryDequeue(out Vector3 position))
         {
-            _mMoveTween?.Kill();
-            _mMoveTween = transform.
+            _mPositionTween?.Kill();
+            _mPositionTween = transform.
                 DOMove(position, 0.2f);
         }
         
         if (_mRotationQueue.TryDequeue(out Vector3 eulerAngles))
         {
-            transform.eulerAngles = eulerAngles;
+            _mRotationTween?.Kill();
+            _mRotationTween = transform.
+                DORotate(eulerAngles, 0.2f);
         }
         
         if (_mScaleQueue.TryDequeue(out Vector3 scale))

@@ -68,5 +68,7 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
         
         ulong remainId = context.selected.Get_Remain_Card(selectId);
         context.fieldGroup.On_Select_NotMe_Rpc(remainId);
+        
+        
     }
 }

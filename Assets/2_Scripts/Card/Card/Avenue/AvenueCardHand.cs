@@ -34,7 +34,7 @@ public class AvenueCardHand : NetworkBehaviour
     {
         foreach (AvenueCard avenueCard in mCardList)
         {
-            avenueCard.Set_Rotation_Tween(eulerAngles);
+            avenueCard.Set_Rotation(eulerAngles);
         }
     }
 
