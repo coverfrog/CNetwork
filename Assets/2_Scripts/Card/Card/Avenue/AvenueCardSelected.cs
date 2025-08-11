@@ -34,4 +34,11 @@ public class AvenueCardSelected : NetworkBehaviour
 
         mDeckSelectedCard = card;
     }
+
+    public ulong Get_Remain_Card(ulong selectId)
+    {
+        return mHandSelectedCard.NetworkObjectId == selectId ?
+            mDeckSelectedCard.NetworkObjectId :
+            mHandSelectedCard.NetworkObjectId;
+    }
 }

@@ -75,6 +75,7 @@ MonoBehaviour:
   mNetworkObject: {fileID: 2031141635723908798}
   mMeshRender: {fileID: 2389717022724884051}
   mIsMe: 0
+  mIsSelected: 0
   mData:
     codeName: 
     displayName: 
@@ -93,7 +94,7 @@ GameObject:
   - component: {fileID: 76310848885726539}
   - component: {fileID: 9024373606380830755}
   - component: {fileID: 2389717022724884051}
-  - component: {fileID: 1769755038286563710}
+  - component: {fileID: 6891858457735691106}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -169,8 +170,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1769755038286563710
-MeshCollider:
+--- !u!65 &6891858457735691106
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -187,7 +188,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.0000002, z: 6.123235e-17}
+  m_Center: {x: 0, y: 0, z: 0}

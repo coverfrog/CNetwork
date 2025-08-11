@@ -11,6 +11,7 @@ public class AvenueCardFieldGroup : NetworkBehaviour
     [SerializeField] private List<AvenueCardField> mFieldList = new List<AvenueCardField>();
     
     public AvenueCardField MyField { get; private set; }
+    public AvenueCardField OtherField { get; private set; }
     
     public void Spawn()
     {
@@ -58,9 +59,17 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         }
         
         bool isMe = steamId == SteamClient.SteamId;
-        field.Set_IsMe(isMe);
         
-        MyField = field;
+        field.Set_IsMe(isMe);
+
+        if (isMe)
+        {
+            MyField = field;
+        }
+        else
+        {
+            OtherField = field;
+        }
     }
     
     [Rpc(SendTo.Everyone)]

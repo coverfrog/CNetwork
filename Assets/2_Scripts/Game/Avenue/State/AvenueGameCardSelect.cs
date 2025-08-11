@@ -43,15 +43,10 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
             return;
         }
         
-        Debug.Log("레이는 되고 있나");
-
         if (!hit.collider.transform.parent.TryGetComponent<AvenueCard>(out AvenueCard card))
         {
             return;
         }
-        
-        Debug.Log("카드는 뜨나");
-        
         
         _mFocusCard = card;
     }
@@ -69,7 +64,10 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
         }
         
         // - get
-        ulong id = _mFocusCard.NetworkObjectId;
-        context.fieldGroup.MyField.Add_Card_Rpc(id);
+        ulong selectId = _mFocusCard.NetworkObjectId;
+        context.fieldGroup.MyField.On_Select_Rpc(selectId);
+        
+        ulong remainId = context.selected.Get_Remain_Card(selectId);
+        context.fieldGroup.OtherField.On_Select_Rpc(remainId);
     }
 }

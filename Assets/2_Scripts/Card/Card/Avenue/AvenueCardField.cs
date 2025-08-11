@@ -29,7 +29,7 @@ public class AvenueCardField : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void Add_Card_Rpc(ulong cardId)
+    public void On_Select_Rpc(ulong cardId)
     {
         if (!NetCustomUtil.FindSpawned(cardId, out AvenueCard card))
         {
