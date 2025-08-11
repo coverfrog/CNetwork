@@ -5,7 +5,6 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
     public void OnEnter(AvenueGameHandler handler, AvenueGameContext context)
     {
         // - deck ins init
-        
         context.deck = Instantiate(context.deckOrigin);
         context.deck.Spawn();
         context.deck.Init_Request(context.deckOriginTr.position);
@@ -23,7 +22,7 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
         
         context.isHandCardSelect = MultiManager.Instance.IsServer;
         
-        handler.StateChange_Rpc(AvenueGameState.HandCardSelect);
+        handler.StateChange(AvenueGameState.HandCardSelect);
     }
 
     public void OnUpdate(AvenueGameHandler handler, AvenueGameContext context)

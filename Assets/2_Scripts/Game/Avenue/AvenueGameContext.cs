@@ -12,6 +12,7 @@ public class AvenueGameContext
     public Camera mainCamera;
     
     [Header("-- Origin")]
+    public AvenueGameRpc rpcOrigin;
     public AvenueCardDeck deckOrigin;
     public AvenueCardHand handOrigin;
     public AvenueCardHandGroup handGroupOrigin;
@@ -32,6 +33,7 @@ public class AvenueGameContext
     public Transform deckSetOriginTr;
     
     [Header("-- Runtime")]
+    public AvenueGameRpc rpc;
     public AvenueCardDeck deck;
     public AvenueCardHandGroup handGroup;
     public AvenueCardFieldGroup fieldGroup;

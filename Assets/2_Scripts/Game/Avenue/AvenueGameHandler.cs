@@ -6,10 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(AvenueGameInit))]
 [RequireComponent(typeof(AvenueGameHandCardSelect))]
 [RequireComponent(typeof(AvenueGameCardSelect))]
-public class AvenueGameHandler : NetworkBehaviour
+public class AvenueGameHandler : MonoBehaviour
 {
-    [SerializeField] private NetworkObject mNetworkObject;
-    [Space]
     [SerializeField] private AvenueGameState mState;
     [SerializeField] private AvenueGameContext mContext;
     [Space]
@@ -26,13 +24,16 @@ public class AvenueGameHandler : NetworkBehaviour
             return;
         }
         
-        mNetworkObject.Spawn();
+        mContext.rpc = Instantiate(mContext.rpcOrigin);
+        mContext.rpc.Spawn();
+        mContext.rpc.Init_Rpc();
 
-        StateChange_Rpc(AvenueGameState.Init);
+        StateChange(AvenueGameState.Init);
     }
 
-    [Rpc(SendTo.Everyone)]
-    public void StateChange_Rpc(AvenueGameState newState)
+    public void StateChange(AvenueGameState newState) => mContext.rpc.StateChange_Rpc(newState);
+
+    public void OnStateChange(AvenueGameState newState)
     {
         mState = newState;
         
