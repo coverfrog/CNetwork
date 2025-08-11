@@ -13,6 +13,7 @@ public class AvenueCardSelected : NetworkBehaviour
         mNetworkObject.Spawn();
     }
 
+    [Rpc(SendTo.Everyone)]
     public void Set_Hand_Selected_Rpc(ulong id)
     {
         if (!NetCustomUtil.FindSpawned(id, out AvenueCard card))
@@ -23,6 +24,7 @@ public class AvenueCardSelected : NetworkBehaviour
         mHandSelectedCard = card;
     }
 
+    [Rpc(SendTo.Everyone)]
     public void Set_Deck_Selected_Rpc(ulong id)
     {
         if (!NetCustomUtil.FindSpawned(id, out AvenueCard card))
