@@ -64,7 +64,7 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
         
         // - get
         ulong selectId = _mFocusCard.NetworkObjectId;
-        context.fieldGroup.MyField.On_Select_Rpc(selectId);
+        context.fieldGroup.On_Select_Rpc(selectId);
         
         // ulong remainId = context.selected.Get_Remain_Card(selectId);
         // context.fieldGroup.OtherField.On_Select_Rpc(remainId);

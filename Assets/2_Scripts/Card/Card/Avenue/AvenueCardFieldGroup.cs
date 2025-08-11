@@ -11,8 +11,6 @@ public class AvenueCardFieldGroup : NetworkBehaviour
     [Space]
     [SerializeField] private List<AvenueCardField> mFieldList = new List<AvenueCardField>();
 
-    public AvenueCardField MyField => mFieldList.FirstOrDefault(f => f.IsMe);
-    
     public void Spawn()
     {
         mNetworkObject.Spawn();
@@ -39,6 +37,12 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         }
 
         Set_Origin_Rpc(context.fieldMeOriginTr.position,context.fieldOtherOriginTr.position);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void On_Select_Rpc(ulong cardId)
+    {
+        mFieldList.FirstOrDefault(f => f.IsMe)?.On_Select(cardId);
     }
     
     [Rpc(SendTo.Everyone)]
