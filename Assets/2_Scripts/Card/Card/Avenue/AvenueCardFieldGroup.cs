@@ -10,7 +10,9 @@ public class AvenueCardFieldGroup : NetworkBehaviour
     [SerializeField] private NetworkObject mNetworkObject;
     [Space]
     [SerializeField] private List<AvenueCardField> mFieldList = new List<AvenueCardField>();
-
+    public AvenueCardField mMyField;
+    public AvenueCardField mOtherField;
+    
     public void Spawn()
     {
         mNetworkObject.Spawn();
@@ -39,9 +41,9 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         Set_Origin_Rpc(context.fieldMeOriginTr.position,context.fieldOtherOriginTr.position);
     }
 
-    public void On_Select_Me_Rpc(ulong cardId)
+    public void On_Select(ulong cardId, bool isMe)
     {
-        mFieldList.FirstOrDefault(f => f.IsMe)?.On_Select(cardId);
+        (isMe ? mMyField : mOtherField).On_Select(cardId);
     }
     
     public void On_Select_NotMe_Rpc(ulong cardId)
@@ -70,6 +72,11 @@ public class AvenueCardFieldGroup : NetworkBehaviour
         
         bool isMe = steamId == SteamClient.SteamId;
         field.Set_IsMe(isMe);
+
+        if (isMe)
+            mMyField = field;
+        else
+            mOtherField = field;
     }
     
     [Rpc(SendTo.Everyone)]
