@@ -5,8 +5,8 @@ public class AvenueCardSelected : NetworkBehaviour
 {
     [SerializeField] private NetworkObject mNetworkObject;
     [Space]
-    [SerializeField] private AvenueCard mHandSelectedCard;
-    [SerializeField] private AvenueCard mDeckSelectedCard;
+    public AvenueCard mHandSelectedCard;
+    public AvenueCard mDeckSelectedCard;
     
     public void Spawn()
     {

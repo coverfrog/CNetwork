@@ -17,6 +17,10 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
         context.selected = Instantiate(context.cardSelectedOrigin);
         context.selected.Spawn();
         
+        context.fieldGroup = Instantiate(context.fieldGroupOrigin);
+        context.fieldGroup.Spawn();
+        context.fieldGroup.Init_Request(context);
+        
         context.isHandCardSelect = MultiManager.Instance.IsServer;
         
         handler.StateChange(AvenueGameState.HandCardSelect);
