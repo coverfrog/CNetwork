@@ -28,8 +28,6 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
 
     private void Focus(AvenueGameContext context)
     {
-        Debug.Log("Focus");
-        
         Vector3 mousePosition = Input.mousePosition;
         Ray ray = context.mainCamera.ScreenPointToRay(mousePosition);
 
@@ -44,11 +42,16 @@ public class AvenueGameCardSelect : MonoBehaviour, IAvenueGameState
 
             return;
         }
+        
+        Debug.Log("레이는 되고 있나");
 
         if (!hit.collider.transform.parent.TryGetComponent<AvenueCard>(out AvenueCard card))
         {
             return;
         }
+        
+        Debug.Log("카드는 뜨나");
+        
         
         _mFocusCard = card;
     }
