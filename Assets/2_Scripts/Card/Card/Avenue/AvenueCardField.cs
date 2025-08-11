@@ -30,8 +30,6 @@ public class AvenueCardField : NetworkBehaviour
 
     public void On_Select(ulong cardId)
     {
-        Debug.Log($"[is me] : {IsMe} , [mOriginPoint] : {mOriginPoint}");
-        
         if (!NetCustomUtil.FindSpawned(cardId, out AvenueCard card))
         {
             return;
