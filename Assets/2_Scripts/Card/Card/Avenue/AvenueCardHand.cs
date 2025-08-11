@@ -29,14 +29,12 @@ public class AvenueCardHand : NetworkBehaviour
         mOriginPoint = position;
     }
 
-    public void Set_Rotation(Quaternion rotation)
-    {
-        transform.rotation = rotation;
-    }
-    
     public void Set_Rotation(Vector3 eulerAngles)
     {
-        transform.eulerAngles = eulerAngles;
+        foreach (AvenueCard avenueCard in mCardList)
+        {
+            avenueCard.Set_Rotation(eulerAngles);
+        }
     }
     
     [Rpc(SendTo.Everyone)]

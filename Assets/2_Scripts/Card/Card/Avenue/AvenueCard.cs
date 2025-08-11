@@ -17,6 +17,7 @@ public class AvenueCard : NetworkBehaviour
     public AvenueCardData Data => mData;
     
     private readonly Queue<Vector3> _mPositionQueue = new Queue<Vector3>();
+    private readonly Queue<Vector3> _mRotationQueue = new Queue<Vector3>();
     
     public AvenueCard SetData(AvenueCardData data)
     {
@@ -33,6 +34,12 @@ public class AvenueCard : NetworkBehaviour
     public AvenueCard SetPosition(Vector3 position)
     {
         _mPositionQueue.Enqueue(position);
+        return this;
+    }
+    
+    public AvenueCard Set_Rotation(Vector3 eulerAngles)
+    {
+        _mRotationQueue.Enqueue(eulerAngles);
         return this;
     }
 
@@ -65,6 +72,11 @@ public class AvenueCard : NetworkBehaviour
         if (_mPositionQueue.TryDequeue(out Vector3 position))
         {
             transform.position = position;
+        }
+        
+        if (_mRotationQueue.TryDequeue(out Vector3 eulerAngles))
+        {
+            transform.eulerAngles = eulerAngles;
         }
     }
 }
