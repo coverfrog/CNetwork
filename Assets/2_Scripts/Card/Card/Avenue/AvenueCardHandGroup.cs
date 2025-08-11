@@ -84,6 +84,11 @@ public class AvenueCardHandGroup : NetworkBehaviour
         hand.Set_IsMe(isMe);
     }
 
+    private void Set_Rotaition_Rpc()
+    {
+        
+    }
+
     [Rpc(SendTo.Everyone)]
     private void Set_Origin_Rpc(Vector3 me, Vector3 other)
     {
@@ -91,6 +96,7 @@ public class AvenueCardHandGroup : NetworkBehaviour
         {
             // - set
             avenueCardHand.Set_Origin(avenueCardHand.IsMe ? me : other);
+            avenueCardHand.Set_Rotation(avenueCardHand.IsMe ? Vector3.zero : new Vector3(0, 0, 180));
         }
     }
 }

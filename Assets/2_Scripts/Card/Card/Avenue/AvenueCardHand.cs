@@ -28,6 +28,16 @@ public class AvenueCardHand : NetworkBehaviour
     {
         mOriginPoint = position;
     }
+
+    public void Set_Rotation(Quaternion rotation)
+    {
+        transform.rotation = rotation;
+    }
+    
+    public void Set_Rotation(Vector3 eulerAngles)
+    {
+        transform.eulerAngles = eulerAngles;
+    }
     
     [Rpc(SendTo.Everyone)]
     public void Add_Card_Rpc(ulong id)
