@@ -39,7 +39,7 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
                 return;
             }
             
-            _mFocusCard.OnUnFocus();
+            _mFocusCard.On_UnFocus_Rpc();
             _mFocusCard = null;
 
             return;
@@ -52,7 +52,7 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
         
         _mFocusCard = card;
         
-        card.OnFocus();
+        card.On_Focus_Rpc();
     }
 
     private void Select(AvenueGameContext context)
@@ -65,7 +65,7 @@ public class AvenueGameHandCardSelect : MonoBehaviour, IAvenueGameState
         if (Input.GetMouseButtonDown(0))
         {
             _mSelectedCard = _mFocusCard;
-            _mFocusCard.Select_Rpc(context.handSetOriginTr.position);
+            _mFocusCard.On_Select_Rpc(context.handSetOriginTr.position);
         }
     }
 }

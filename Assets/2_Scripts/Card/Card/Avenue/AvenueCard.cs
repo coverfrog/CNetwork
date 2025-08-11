@@ -73,7 +73,8 @@ public class AvenueCard : NetworkBehaviour
 
     //
     
-    public void OnFocus()
+    [Rpc(SendTo.Everyone)]
+    public void On_Focus_Rpc()
     {
         _mScaleTween?.Kill();
         _mScaleTween = transform.
@@ -81,7 +82,8 @@ public class AvenueCard : NetworkBehaviour
             SetEase(Ease.OutBack);
     }
 
-    public void OnUnFocus()
+    [Rpc(SendTo.Everyone)]
+    public void On_UnFocus_Rpc()
     {
         _mScaleTween?.Kill();
         _mScaleTween = transform.
@@ -92,11 +94,15 @@ public class AvenueCard : NetworkBehaviour
     //
 
     [Rpc(SendTo.Everyone)]
-    public void Select_Rpc(Vector3 position)
+    public void On_Select_Rpc(Vector3 position)
     {
         _mMoveTween?.Kill();
         _mMoveTween = transform.
             DOMove(position, 0.5f);
+        
+        _mScaleTween?.Kill();
+        _mScaleTween = transform.
+            DOScale(Vector3.one * 1.5f, 0.2f);
     }
     
     //
