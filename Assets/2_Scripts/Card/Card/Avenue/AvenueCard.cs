@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -18,6 +19,9 @@ public class AvenueCard : NetworkBehaviour
     
     private readonly Queue<Vector3> _mPositionQueue = new Queue<Vector3>();
     private readonly Queue<Vector3> _mRotationQueue = new Queue<Vector3>();
+    
+    private Tween _mScaleTween;
+    private Tween _mMoveTween;
     
     public AvenueCard SetData(AvenueCardData data)
     {
@@ -67,6 +71,36 @@ public class AvenueCard : NetworkBehaviour
         return mNetworkObject.NetworkObjectId;
     }
 
+    //
+    
+    public void OnFocus()
+    {
+        _mScaleTween?.Kill();
+        _mScaleTween = transform.
+            DOScale(Vector3.one * 1.5f, 0.2f).
+            SetEase(Ease.OutBack);
+    }
+
+    public void OnUnFocus()
+    {
+        _mScaleTween?.Kill();
+        _mScaleTween = transform.
+            DOScale(Vector3.one * 1.0f, 0.05f).
+            SetEase(Ease.OutBack);
+    }
+    
+    //
+
+    [Rpc(SendTo.Everyone)]
+    public void Select_Rpc(Vector3 position)
+    {
+        _mMoveTween?.Kill();
+        _mMoveTween = transform.
+            DOMove(position, 0.5f);
+    }
+    
+    //
+
     private void Update()
     {
         if (_mPositionQueue.TryDequeue(out Vector3 position))
@@ -76,7 +110,6 @@ public class AvenueCard : NetworkBehaviour
         
         if (_mRotationQueue.TryDequeue(out Vector3 eulerAngles))
         {
-            Debug.Log(eulerAngles);
             transform.eulerAngles = eulerAngles;
         }
     }

@@ -36,11 +36,17 @@ public class AvenueCardHand : NetworkBehaviour
             avenueCard.Set_Rotation(eulerAngles);
         }
     }
+
+    [Rpc(SendTo.Everyone)]
+    public void Draw_Card_Rpc(ulong deckId, ulong handId)
+    {
+        
+    }
     
     [Rpc(SendTo.Everyone)]
-    public void Add_Card_Rpc(ulong id)
+    public void Add_Card_Rpc(ulong cardId)
     {
-        if (!NetCustomUtil.FindSpawned(id, out AvenueCard card))
+        if (!NetCustomUtil.FindSpawned(cardId, out AvenueCard card))
         {
             return;
         }

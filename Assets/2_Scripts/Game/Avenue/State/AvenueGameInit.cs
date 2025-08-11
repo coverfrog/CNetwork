@@ -13,8 +13,15 @@ public class AvenueGameInit : MonoBehaviour, IAvenueGameState
         context.handGroup = Instantiate(context.handGroupOrigin);
         context.handGroup.Spawn();
         context.handGroup.Init_Request(context);
+
+        context.isMyTurn = MultiManager.Instance.IsServer;
         
-        handler.StateChange(AvenueGameState.TurnBegin);
+        handler.StateChange(AvenueGameState.HandCardSelect);
+    }
+
+    public void OnUpdate(AvenueGameHandler handler, AvenueGameContext context)
+    {
+        
     }
 
     public void OnExit(AvenueGameHandler handler, AvenueGameContext context)

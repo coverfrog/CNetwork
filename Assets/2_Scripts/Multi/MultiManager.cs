@@ -25,6 +25,7 @@ public class MultiManager : Singleton<MultiManager>
     private IMultiConnector _mClientConnector, _mServerConnector;
     
     public Lobby? Current { get; private set; }
+    public bool IsServer { get; private set; }
     
     protected override void Awake()
     {
@@ -38,7 +39,9 @@ public class MultiManager : Singleton<MultiManager>
         _mClientConnector = new MultiClientConnector(_mTransport,
             lobby =>
             {
+                IsServer = false;
                 Current = lobby;
+                
                 OnConnectSuccess?.Invoke(lobby);
             }, msg =>
             {
@@ -48,7 +51,9 @@ public class MultiManager : Singleton<MultiManager>
         _mServerConnector = new MultiServerConnector(4,
             lobby =>
             {
+                IsServer = true;
                 Current = lobby;
+                
                 OnConnectSuccess?.Invoke(lobby);
             }, msg =>
             {

@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AvenueGameInit))]
-[RequireComponent(typeof(AvenueGameTurnBegin))]
+[RequireComponent(typeof(AvenueGameHandCardSelect))]
 public class AvenueGameHandler : MonoBehaviour
 {
     [SerializeField] private AvenueGameContext mContext;
     [Space]
     [SerializeField] private AvenueGameInit mInit;
-    [SerializeField] private AvenueGameTurnBegin mTurnBegin;
+    [SerializeField] private AvenueGameHandCardSelect mHandCardSelect;
 
     private IAvenueGameState _mState;
     
@@ -28,9 +29,14 @@ public class AvenueGameHandler : MonoBehaviour
         _mState = newState switch
         {
             AvenueGameState.Init => mInit,
-            AvenueGameState.TurnBegin => mTurnBegin,
+            AvenueGameState.HandCardSelect => mHandCardSelect,
             _ => null
         };
         _mState?.OnEnter(this, mContext);
+    }
+
+    private void Update()
+    {
+        _mState?.OnUpdate(this, mContext);
     }
 }

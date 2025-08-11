@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  mCardHeight: 0.2
+  mCardHeight: 0.02
   mBackTexture:
     m_AssetGUID: 04ba0fec42e32874aaf6f75d9f0a83c8
     m_SubObjectName: 

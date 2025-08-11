@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -16,8 +17,11 @@ public class AvenueGameContext
     public Transform deckOriginTr;
     public Transform handMeOriginTr;
     public Transform handOtherOriginTr;
+    public Transform handSetOriginTr;
+    public Transform deckSetOriginTr;
     
     [Header("-- Runtime")]
     public AvenueCardDeck deck;
     public AvenueCardHandGroup handGroup;
+    public bool isMyTurn;
 }

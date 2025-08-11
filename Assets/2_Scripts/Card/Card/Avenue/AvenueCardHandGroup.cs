@@ -13,12 +13,13 @@ public class AvenueCardHandGroup : NetworkBehaviour
     [Space]
     [SerializeField] private List<AvenueCardHand> mHandList = new List<AvenueCardHand>();
     
+    public AvenueCardHand MyHand { get; private set; }
+    
     public ulong Spawn()
     {
         mNetworkObject.Spawn();
         return mNetworkObject.NetworkObjectId;
     }
-    
 
     public void Init_Request(AvenueGameContext context)
     {
@@ -83,6 +84,8 @@ public class AvenueCardHandGroup : NetworkBehaviour
         
         bool isMe = steamId == SteamClient.SteamId;
         hand.Set_IsMe(isMe);
+        
+        MyHand = hand;
     }
 
     [Rpc(SendTo.Everyone)]
